@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/",
+                "${workspaceFolder}/arch/riscv64/",
+                "${workspaceFolder}/fs/",
+                "${workspaceFolder}/fs/vfs/",
+                "${workspaceFolder}/fs/ext2/",
+                "${workspaceFolder}/lib/",
+                "${workspaceFolder}/driver/"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/riscv64-unknown-elf-gcc",
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

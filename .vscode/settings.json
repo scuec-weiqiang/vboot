@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "compare": "c",
+        "cstdint": "c",
+        "stdarg.h": "c",
+        "page_alloc.h": "c"
+    }
+}
