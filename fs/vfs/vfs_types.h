@@ -20,10 +20,20 @@
 typedef long long loff_t;
 typedef s64 ino_t;
 
+struct superblock;
+struct inode;
+struct dentry;
+struct file;
+struct fs_type;
+struct super_ops;
+struct inode_ops;
+struct file_ops;
+
+
 struct fs_type
 {
     const char *name;
-    struct superblock *(*mount)(struct fs_type *fs_type, block_device_t *adap, int flags);
+    struct superblock *(*mount)(struct fs_type *fs_type, struct block_device *adap, int flags);
     void (*kill_sb)(struct superblock *sb);
     struct super_ops *s_ops;
     int fs_flag;
@@ -34,11 +44,11 @@ struct fs_type
 struct super_ops
 {
     void *(*create_private_inode)();
-    int (*new_private_inode)(inode_t *);
-    int (*read_inode)(inode_t *);
-    int (*write_inode)(inode_t *);
+    int (*new_private_inode)(struct inode *);
+    int (*read_inode)(struct inode *);
+    int (*write_inode)(struct inode *);
     int (*sync_fs)(struct superblock *);
-    int (*statfs)(struct superblock *, statfs_t *);
+    int (*statfs)(struct superblock *, struct statfs *);
 };
 struct statfs
 {
@@ -64,8 +74,8 @@ struct superblock
     struct block_adapter *adap;
     struct super_ops *s_ops;
     u32 s_magic;
-    inode_t *s_root; // 根目录的inode
-    statfs_t statfs; // 获取文件系统统计信息
+    struct inode *s_root; // 根目录的inode
+    struct statfs statfs; // 获取文件系统统计信息
     void *s_private;
 };
 
@@ -81,29 +91,29 @@ struct page
     bool under_io;  // 正在读/写磁盘
     bool uptodate;  // 内容有效
     bool dirty;     // 脏页标志
-    inode_t *inode; // 所属 inode
+    struct inode *inode; // 所属 inode
     pgoff_t index;  // page index in file
     u8 *data;       // 指向 PAGE_SIZE 内存
-} page_t;
+};
 
 struct aops
 {
-    int (*readpage)(page_t *page);
-    int (*writepage)(page_t *page);
+    int (*readpage)(struct page*page);
+    int (*writepage)(struct page*page);
 };
 
 struct address_space
 {
-    inode_t *host;
+    struct inode *host;
     struct hashtable *page_cache;
     struct aops *a_ops;
 };
 
 struct inode_ops
 {
-    int *(*lookup)(inode_t *dir, struct dentry *dentry);
-    int (*mkdir)(inode_t *dir, struct dentry *dentry, u32 i_mode);
-    int (*rmdir)(inode_t *dir, struct dentry *dentry);
+    int *(*lookup)(struct inode *dir, struct dentry *dentry);
+    int (*mkdir)(struct inode *dir, struct dentry *dentry, u32 i_mode);
+    int (*rmdir)(struct inode *dir, struct dentry *dentry);
 };
 struct inode
 {
@@ -165,8 +175,8 @@ struct inode
 
     // vfs字段
     struct superblock *i_sb;
-    inode_ops_t *i_ops;
-    file_ops_t *f_ops;                // 文件操作函数表
+    struct inode_ops *i_ops;
+    struct file_ops *f_ops;                // 文件操作函数表
     struct address_space *i_mapping;  // 地址空间
     struct spinlock i_lock;           // 保护inode的锁
     struct lru_node i_lru_cache_node; // 缓存节点，用于LRU算法管理
@@ -184,7 +194,7 @@ struct qstr
 };
 
 // dentry 状态标志
-enum d_entry_state
+enum dentry_state
 {
     DCACHE_REFERENCED = 1 << 0,     // 最近被访问过
     DCACHE_LRU_LIST = 1 << 1,       // 在 LRU 列表中
@@ -200,29 +210,29 @@ enum d_entry_state
 struct dentry
 {
 #define VFS_NAME_MAX 255
-    qstr_t name;
-    inode_t *d_inode;                 // 关联的inode
+    struct qstr name;
+    struct inode *d_inode;                 // 关联的inode
     struct dentry *d_parent;          // 父目录项
     struct list d_childs;             // 父目录的子目录链表节点
     struct list d_subdirs;            // 本目录的子目录项链表头
     struct lru_node d_lru_cache_node; // 目录项缓存
     struct spinlock d_lock;
-    struct dentry_state d_flags; // dentry状态标志
+    enum dentry_state d_flags; // dentry状态标志
     struct dentry_ops *d_op;
     // void *d_private;
 };
 
 struct file_ops
 {
-    int (*read)(struct inode *inode, void *buf, size_t size, loff_t offset);
-    int (*write)(struct inode *inode, const void *buf, size_t size, loff_t offset);
+    int (*read)(struct inode*, void*, size_t, loff_t);
+    int (*write)(struct inode*, const void*, size_t, loff_t);
     // int (*truncate)(struct  inode *inode, u64 size);
     // int (*sync)(struct  file *f); // 可选
 };
 
 struct file
 {
-    inode_t *f_inode;        // 指向文件对应的 inode
+    struct inode *f_inode;        // 指向文件对应的 inode
     struct dentry *f_dentry; // 打开的 dentry (路径)
     loff_t f_pos;            // 文件读写偏移
     u32 f_flags;             // 打开模式 (O_RDONLY, O_WRONLY, O_RDWR, O_CREAT...)
@@ -231,7 +241,7 @@ struct file
     void *private_data;      // 私有数据，具体fs可以存东西
 };
 
-struct mount
+struct mount_point
 {
     struct superblock *mnt_sb; // 挂载的超级块
     struct dentry *mnt_root;   // 挂载点根目录

@@ -1,0 +1,14 @@
+out/./lib/lru.o: lib/lru.c lib/hashtable.h lib/hlist.h lib/types.h \
+ lib/list.h lib/container_of.h lib/check.h lib/printf.h lib/utils.h \
+ boot_malloc.h lib/types.h lib/lru.h
+lib/hashtable.h:
+lib/hlist.h:
+lib/types.h:
+lib/list.h:
+lib/container_of.h:
+lib/check.h:
+lib/printf.h:
+lib/utils.h:
+boot_malloc.h:
+lib/types.h:
+lib/lru.h:

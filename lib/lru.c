@@ -11,7 +11,7 @@
 #include "list.h"
 #include "check.h"
 #include "utils.h"
-#include "page_alloc.h"
+#include "boot_malloc.h"
 #include "lru.h"
 
 /**

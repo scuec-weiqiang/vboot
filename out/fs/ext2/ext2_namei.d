@@ -1,0 +1,23 @@
+out/./fs/ext2//ext2_namei.o: fs/ext2//ext2_namei.c fs/ext2//ext2_types.h \
+ lib/types.h lib/bitmap.h lib/types.h fs/ext2//ext2_dir.h \
+ fs/vfs/vfs_types.h fs/block_adapter.h fs/block_device.h lib/list.h \
+ lib/container_of.h lib/lru.h lib/hashtable.h lib/hlist.h lib/list.h \
+ arch/riscv64/spinlock.h lib/time.h lib/check.h lib/printf.h
+fs/ext2//ext2_types.h:
+lib/types.h:
+lib/bitmap.h:
+lib/types.h:
+fs/ext2//ext2_dir.h:
+fs/vfs/vfs_types.h:
+fs/block_adapter.h:
+fs/block_device.h:
+lib/list.h:
+lib/container_of.h:
+lib/lru.h:
+lib/hashtable.h:
+lib/hlist.h:
+lib/list.h:
+arch/riscv64/spinlock.h:
+lib/time.h:
+lib/check.h:
+lib/printf.h:

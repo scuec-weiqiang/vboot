@@ -4,12 +4,12 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/",
-                "${workspaceFolder}/arch/riscv64/",
                 "${workspaceFolder}/fs/",
                 "${workspaceFolder}/fs/vfs/",
                 "${workspaceFolder}/fs/ext2/",
                 "${workspaceFolder}/lib/",
-                "${workspaceFolder}/driver/"
+                "${workspaceFolder}/drivers/",
+                "${workspaceFolder}/arch/riscv64/"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/riscv64-unknown-elf-gcc",

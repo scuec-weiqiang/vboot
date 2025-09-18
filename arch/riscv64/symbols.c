@@ -16,8 +16,7 @@ extern char __data_start[], __data_end[];
 extern char __bss_start[], __bss_end[];
 extern char __stack_start[], __stack_end[];
 extern char __heap_start[], __heap_end[];
-extern char __systimer_ctx[];
-extern char __core_num[];
+
 
 uintptr_t text_start;
 uintptr_t text_end;
@@ -40,9 +39,9 @@ uintptr_t stack_size;
 uintptr_t heap_start;
 uintptr_t heap_end;
 uintptr_t heap_size;
-uintptr_t core_num;
 
-void maddr_def_init()
+
+void symbols_init()
 {
     text_start = (uintptr_t)&__text_start;
     text_end = (uintptr_t)&__text_end;
@@ -65,7 +64,6 @@ void maddr_def_init()
     heap_start = (uintptr_t)&__heap_start;
     heap_end = (uintptr_t)&__heap_end;
     heap_size = (heap_end - heap_start);
-    core_num = (uintptr_t)&__core_num;
 }
 
 /**

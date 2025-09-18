@@ -10,7 +10,7 @@
 #include "bitmap.h"
 #include "printf.h"
 #include "string.h"
-#include "page_alloc.h"
+#include "boot_malloc.h"
 
 #define PAGE_SIZE 4096
 

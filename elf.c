@@ -10,7 +10,7 @@
 #include "types.h"
 #include "printf.h"
 #include "elf.h"
-#include "page_alloc.h"
+#include "boot_malloc.h"
 #include "check.h"
 
 static int elf_check(const char *elf)
@@ -60,9 +60,6 @@ struct elf_info* elf_parse(const char *elf)
             info->segs[i].memsz = phdr[i].p_memsz;
             info->segs[i].offset = phdr[i].p_offset;
             info->segs[i].flags = phdr[i].p_flags;
-            printf("Segment %d: vaddr=%xu, filesz=%xu, memsz=%xu, offset=%xu, flags=%x\n", 
-                   i, info->segs[i].vaddr, info->segs[i].filesz, info->segs[i].memsz, 
-                   info->segs[i].offset, info->segs[i].flags);
         // }
     }
 

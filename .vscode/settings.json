@@ -3,6 +3,14 @@
         "compare": "c",
         "cstdint": "c",
         "stdarg.h": "c",
-        "page_alloc.h": "c"
+        "page_alloc.h": "c",
+        "types.h": "c",
+        "vfs_icache.h": "c",
+        "vfs_types.h": "c",
+        "vfs_fs_type.h": "c",
+        "string.h": "c",
+        "fs_init.h": "c",
+        "boot_malloc.h": "c",
+        "block_device.h": "c"
     }
 }

@@ -25,7 +25,7 @@ extern uintptr_t heap_end;
 extern uintptr_t heap_size;
 extern uintptr_t core_num;
 
-extern void maddr_def_init();
+extern void symbols_init();
 extern void zero_bss();
 
 #endif

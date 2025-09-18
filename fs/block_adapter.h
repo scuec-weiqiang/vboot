@@ -13,6 +13,7 @@
 #include "types.h"
 #include "block_device.h"
 
+struct block_adapter;
 
 extern int block_adapter_register(const char* adap_name,const char* bdev_name, u32 fs_block_size);
 extern void block_adapter_destory(struct block_adapter* adap);
