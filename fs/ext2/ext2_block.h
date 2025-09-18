@@ -12,7 +12,7 @@
 #include "types.h"
 #include "vfs_types.h"
 
-extern u64 ext2_bno_group(struct superblock *vfs_sb,u64 bno);
+extern int ext2_bno_group(struct superblock *vfs_sb,u64 bno);
 extern int ext2_alloc_bno(struct superblock *vfs_sb);
 extern int ext2_release_bno(struct superblock *vfs_sb,u64 bno);
 extern int ext2_block_mapping(struct inode *inode, u64 index);

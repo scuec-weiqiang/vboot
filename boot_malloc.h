@@ -14,6 +14,6 @@
 
 extern void malloc_init();
 extern void *malloc(size_t size);
-extern void *page_malloc(size_t npages);
+extern void *page_alloc(size_t npages);
 extern void free(void *ptr);
 #endif

@@ -11,6 +11,7 @@
 #include "ext2_types.h"
 #include "ext2_block.h"
 #include "block_adapter.h"
+#include "string.h"
 
 int ext2_readpage(struct page *page) 
 {

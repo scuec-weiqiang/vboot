@@ -11,6 +11,7 @@
         "string.h": "c",
         "fs_init.h": "c",
         "boot_malloc.h": "c",
-        "block_device.h": "c"
+        "block_device.h": "c",
+        "time.h": "c"
     }
 }

@@ -22,7 +22,7 @@ struct lru_node
     s64 ref_count;           // 引用计数
 };
 
-typedef s64 (*lru_free_func_t)(struct lru_node *node);
+typedef int (*lru_free_func_t)(struct lru_node *node);
 
 struct lru_cache
 {
@@ -35,7 +35,7 @@ struct lru_cache
 
 typedef int (*lru_walk_func_t)(struct lru_cache *cache, struct lru_node *node);
 
-extern struct lru_cache *lru_init(size_t capacity, lru_free_func_t free, hash_func_t hash_func, hash_compare_t hash_compare);
+extern struct lru_cache *lru_init(size_t capacity, lru_free_func_t free_func, hash_func_t hash_func, hash_compare_t hash_compare);
 extern void lru_node_init(struct lru_node *node);
 extern void lru_destroy(struct lru_cache *cache);
 

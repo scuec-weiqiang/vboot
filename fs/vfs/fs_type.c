@@ -10,6 +10,7 @@
 #include "vfs_types.h"
 #include "list.h"
 #include "check.h"
+#include "string.h"
 
 static struct list g_fs_types = {&g_fs_types, &g_fs_types};
 

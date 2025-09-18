@@ -14,7 +14,7 @@
 
 extern struct list vfs_mount_points;
 extern int mount(const char *type_name, const char *bdev_name, int flags);
-extern int mount_root();
-extern struct dentry *vfs_get_root();
+extern int mount_rootfs();
+extern struct dentry *get_root();
 
-#endif;
+#endif

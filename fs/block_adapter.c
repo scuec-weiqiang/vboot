@@ -10,6 +10,7 @@
 #include "block_adapter.h"
 #include "string.h"
 #include "types.h"
+#include "boot_malloc.h"
 
 #define ADAP_INVALID_ARG    -1
 #define ADAP_BDEV_NULL      -2
@@ -20,7 +21,7 @@
 
 struct block_adapter
 {
-    char* name[16];
+    char name[16];
     struct block_device *bdev;
     int fs_block_size;
     int sectors_per_block;

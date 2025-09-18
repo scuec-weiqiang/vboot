@@ -12,6 +12,8 @@
 #include "virt_disk.h"
 #include "string.h"
 #include "block_device.h"
+#include "printk.h"
+#include "boot_malloc.h"
 
 struct virt_disk
 {
@@ -30,7 +32,7 @@ struct virt_disk
 
 struct virt_disk virt_disk;
 
-char desc[sizeof(struct virtq_desc)] = {0};
+char desc[] = {0};
 char avail[sizeof(struct virtq_avail)] = {0};
 char used[sizeof(struct virtq_used)] = {0};
 
@@ -60,7 +62,7 @@ static void free_disk_desc(int index)
     }
     else
     {
-        printf("free_disk_desc: index out of range!\n");
+        printk("free_disk_desc: index out of range!\n");
     }
 }
 
@@ -161,7 +163,7 @@ int virt_disk_rw(void *buffer, int sector, enum virt_disk_rw rwflag)
     virtio->queue_notify = 0;
 
     while(virt_disk.last_used_idx == virt_disk.disk_queue.used->idx){
-        // printf(YELLOW("virt_disk_rw: waiting for disk operation to complete..."));
+        // printk(YELLOW("virt_disk_rw: waiting for disk operation to complete..."));
     }
     virt_disk.last_used_idx = virt_disk.disk_queue.used->idx;
     free_disk_chain(index[0]);
@@ -212,10 +214,10 @@ int virt_disk_init()
         return -1;
     }
 
-    virt_disk.disk_queue.desc = desc;
-    virt_disk.disk_queue.avail = avail;
-    virt_disk.disk_queue.used = used;
-    
+    virt_disk.disk_queue.desc = (struct virtq_desc*)malloc(sizeof(struct virtq_desc));
+    virt_disk.disk_queue.avail = (struct virtq_avail*)malloc(sizeof(struct virtq_avail));
+    virt_disk.disk_queue.used = (struct virtq_used*)malloc(sizeof(struct virtq_used));
+
     virtio->queue_num = QUEUE_NUM;
 
     virtio->queue_desc_low = (u32)((uintptr_t) virt_disk.disk_queue.desc & 0xFFFFFFFF);
@@ -262,4 +264,5 @@ int virt_disk_init()
     {
         return -1;
     }
+    return 0;
 }

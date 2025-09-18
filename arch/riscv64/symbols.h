@@ -5,9 +5,6 @@
 extern uintptr_t text_start;
 extern uintptr_t text_end;
 extern uintptr_t text_size;
-extern uintptr_t trap_start;
-extern uintptr_t trap_end;
-extern uintptr_t trap_size;
 extern uintptr_t rodata_start;
 extern uintptr_t rodata_end;
 extern uintptr_t rodata_size;

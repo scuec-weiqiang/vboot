@@ -4,14 +4,14 @@
 
 # 添加你的源文件目录
 ARCH ?= riscv64
-BOARD?= qemu_virt
+
+DISK = ../ZZZ-OS/disk.img
 
 DIR = 	./ \
 		./fs \
 		./fs/ext2/ \
 		./fs/vfs/ \
-        ./arch/$(ARCH)\
-        ./arch/$(ARCH)/$(BOARD)\
+        ./arch/$(ARCH)/\
 		./drivers \
 		./lib \
 
@@ -20,7 +20,7 @@ DIR_SOURCES = $(DIR)
 DIR_INCLUDE = $(addprefix -I, $(DIR))     
 DIR_OUT     = out
 TARGET      = $(DIR_OUT)/$(PROJ_NAME).elf
-LINK_SCRIPT = arch/$(ARCH)/$(BOARD)/build.ld
+LINK_SCRIPT = arch/$(ARCH)/build.ld
 
 # 编译工具链配置
 CC = riscv64-unknown-elf-gcc
@@ -98,7 +98,7 @@ clean:
 # QEMU = qemu-system-riscv64
 QEMU = /usr/local/qemu-riscv/bin/qemu-system-riscv64
 QFLAGS = -nographic -smp 1 -machine virt -bios none -kernel $(TARGET) -cpu rv64
-QFLAGS += -drive file=disk.img,if=none,format=raw,id=disk0,cache=writeback
+QFLAGS += -drive file=$(DISK),if=none,format=raw,id=disk0,cache=writeback
 QFLAGS += -device virtio-blk-device,drive=disk0,bus=virtio-mmio-bus.0
 QFLAGS += -d guest_errors,unimp,trace:time_memory*
 QFLAGS += -global virtio-mmio.force-legacy=false

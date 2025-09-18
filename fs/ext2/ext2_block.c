@@ -12,9 +12,11 @@
 #include "boot_malloc.h"
 #include "check.h"
 #include "spinlock.h"
+#include "ext2_cache.h"
 
-u64 ext2_bno_group(struct superblock *vfs_sb, u64 bno)
+int ext2_bno_group(struct superblock *vfs_sb, u64 bno)
 {
+    CHECK(vfs_sb != NULL, "", return -1;);
     struct ext2_fs_info *fs_info = (struct ext2_fs_info *)vfs_sb->s_private;
     return (bno) / fs_info->s_blocks_per_group;
 }
@@ -44,7 +46,7 @@ int ext2_alloc_bno(struct superblock *vfs_sb)
     CHECK(vfs_sb != NULL, "", return -1;);
     struct ext2_fs_info *fs_info = (struct ext2_fs_info *)vfs_sb->s_private;
     // 加载缓存
-    u64 group = ext2_select_block_group(vfs_sb);
+    int group = ext2_select_block_group(vfs_sb);
     ext2_load_block_bitmap_cache(vfs_sb, group);
     int free_idx = bitmap_scan_0(fs_info->bbm_cache.bbm);
     CHECK(free_idx >= 0, "", return -1;);

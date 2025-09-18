@@ -11,6 +11,7 @@
 #include "fs_type.h"
 #include "icache.h"
 #include "pcache.h"
+#include "dcache.h"
 #include "mount.h"
 
 #include "ext2_super.h"
@@ -18,9 +19,9 @@
 int fs_init()
 {
     fs_register(&ext2_fs_type);
-    vfs_icache_init();
+    icache_init();
     pcache_init();
     dcache_init();
-    mount_root();
+    mount_rootfs();
     return 0;
 }

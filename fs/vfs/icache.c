@@ -40,7 +40,7 @@ static int inode_self_page_cache_compare(const struct hlist_node* node_a, const 
     return a->index - b->index;
 }
 
-int vfs_destory_inode(struct inode *inode)
+int destroy_inode(struct inode *inode)
 {
     CHECK(inode != NULL, "vfs_free_inode: inode is NULL", return -1;);
     CHECK(inode->i_lru_cache_node.ref_count > 0, "vfs_free_inode: inode is still in use", return -1;);
@@ -57,7 +57,7 @@ int vfs_destory_inode(struct inode *inode)
     return 0;
 }
 
-struct inode* vfs_create_inode(struct superblock *sb)
+struct inode* create_inode(struct superblock *sb)
 {
     CHECK(sb != NULL, "vfs_alloc_inode: sb is NULL", return NULL;);
 
@@ -87,9 +87,9 @@ struct inode* vfs_create_inode(struct superblock *sb)
     return new_inode_ret;
 }
 
-struct inode * vfs_inew(struct superblock *sb)
+struct inode * inew(struct superblock *sb)
 {
-    struct inode *new_inode_ret = vfs_create_inode(sb);
+    struct inode *new_inode_ret = create_inode(sb);
     CHECK(new_inode_ret != NULL, "vfs_new_inode: Failed to create new inode", return NULL;);
     
     // 调用文件系统的create_private_inode函数初始化私有inode数据
@@ -101,7 +101,7 @@ struct inode * vfs_inew(struct superblock *sb)
         return new_inode_ret;
     }
     
-    vfs_destory_inode(new_inode_ret);
+    destroy_inode(new_inode_ret);
     return NULL;
 
 }
@@ -145,25 +145,25 @@ static int vfs_inode_lru_free(struct lru_node *node)
     CHECK(node != NULL, "vfs_lru_free: node is NULL", return -1;);
 
     struct inode *inode = container_of(node, struct inode, i_lru_cache_node);
-    return vfs_destory_inode(inode);
+    return destroy_inode(inode);
 }
 
-int vfs_icache_init()
+int icache_init()
 {
     global_inode_cache = lru_init(128, vfs_inode_lru_free,vfs_inode_lru_hash, vfs_inode_lru_compare);
     CHECK(global_inode_cache != NULL, "Failed to create inode LRU cache", return -1;);
     return 0;
 }
 
-void vfs_icache_destory()
+void icache_destroy()
 {
     lru_destroy(global_inode_cache);
 }
 
 
-struct inode *vfs_iget(struct superblock *sb, ino_t ino) 
+struct inode *iget(struct superblock *sb, ino_t ino) 
 {
-    CHECK(sb != NULL, "vfs_iget: sb is NULL", return NULL;);
+    CHECK(sb != NULL, "iget: sb is NULL", return NULL;);
    
     // 构造一个用来查找的inode
     struct inode temp_inode;
@@ -183,7 +183,7 @@ struct inode *vfs_iget(struct superblock *sb, ino_t ino)
         return new_inode_ret; 
     }
     // 没找到，从磁盘读取
-    new_inode_ret = vfs_create_inode(sb);
+    new_inode_ret = create_inode(sb);
     CHECK(new_inode_ret != NULL, "Memory allocation for inode failed", return NULL;);
     new_inode_ret->i_private = sb->s_ops->create_private_inode(new_inode_ret);
     new_inode_ret->i_ino = ino;
@@ -196,13 +196,13 @@ struct inode *vfs_iget(struct superblock *sb, ino_t ino)
         return new_inode_ret;
     }
     
-    vfs_destory_inode(new_inode_ret);
+    destroy_inode(new_inode_ret);
     return NULL;
     
     
 }
 
-int vfs_iput(struct inode *inode) 
+int iput(struct inode *inode) 
 {
     CHECK(inode != NULL, "vfs_input:inode is NULL", return -1;); 
     inode_lock(inode);
@@ -212,10 +212,10 @@ int vfs_iput(struct inode *inode)
     return 0;
 }
 
-static int vfs_icache_sync_func(struct lru_cache *cache, struct lru_node *node)
+static int icache_sync_func(struct lru_cache *cache, struct lru_node *node)
 {
-    CHECK(cache != NULL, "vfs_icache_sync_func: cache is NULL", return -1;);
-    CHECK(node != NULL, "vfs_icache_sync_func: node is NULL", return -1;);
+    CHECK(cache != NULL, "icache_sync_func: cache is NULL", return -1;);
+    CHECK(node != NULL, "icache_sync_func: node is NULL", return -1;);
 
     struct inode *inode = container_of(node, struct inode, i_lru_cache_node);
     inode_lock(inode);
@@ -228,9 +228,9 @@ static int vfs_icache_sync_func(struct lru_cache *cache, struct lru_node *node)
     return 0;
 }
 
-int vfs_icache_sync()
+int icache_sync()
 {
-    CHECK(global_inode_cache != NULL, "vfs_icache_sync: global_inode_cache is NULL", return -1;);
-    lru_walk(global_inode_cache, vfs_icache_sync_func);
+    CHECK(global_inode_cache != NULL, "icache_sync: global_inode_cache is NULL", return -1;);
+    lru_walk(global_inode_cache, icache_sync_func);
     return 0;
 }

@@ -8,10 +8,11 @@
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
 #include "types.h"
-#include "printf.h"
+#include "printk.h"
 #include "elf.h"
 #include "boot_malloc.h"
 #include "check.h"
+#include "string.h"
 
 static int elf_check(const char *elf)
 {
@@ -48,7 +49,7 @@ struct elf_info* elf_parse(const char *elf)
     struct Elf64_Phdr *phdr = (struct Elf64_Phdr *)(elf + ehdr->e_phoff);
     info->entry = ehdr->e_entry;
     info->phnum = ehdr->e_phnum;
-    printf("ELF entry point: %xu, program header count: %du\n", info->entry, info->phnum);
+    printk("ELF entry point: %xu, program header count: %du\n", info->entry, info->phnum);
 
     for (int i = 0; i < ehdr->e_phnum; i++) 
     {

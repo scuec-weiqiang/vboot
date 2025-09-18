@@ -1,5 +1,7 @@
 #include "vfs_types.h"
+#include "pcache.h"
 #include "check.h"
+#include "string.h"
 
 ssize_t ext2_file_read(struct inode *inode, void *buf, size_t size, loff_t *offset)
 {

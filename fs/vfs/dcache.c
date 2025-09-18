@@ -78,9 +78,10 @@ static int dentry_cache_compare(const struct hlist_node *node_a, const struct hl
     return 1; // 不相等
 }
 
-static int dentry_cache_free(struct hlist_node *node)
+static int dentry_cache_free(struct lru_node *node)
 {
     vfs_destroy_dentry(container_of(node, struct dentry, d_lru_cache_node));
+    return 0;
 }
 
 struct lru_cache *global_dentry_cache = NULL;
@@ -96,12 +97,12 @@ static void dentry_unlock(struct dentry *dentry)
 
 int dcache_init()
 {
-    global_dentry_cache = lru_init(128, vfs_destroy_dentry, dentry_cache_hash, dentry_cache_compare);
+    global_dentry_cache = lru_init(128, dentry_cache_free, dentry_cache_hash, dentry_cache_compare);
     CHECK(global_dentry_cache != NULL, "Failed to create dentry LRU cache", return -1;);
     return 0;
 }
 
-void dcache_destory()
+void dcache_destroy()
 {
     lru_destroy(global_dentry_cache);
 }
@@ -169,5 +170,5 @@ int dput(struct dentry *dentry)
     dentry_lock(dentry);
     lru_unref(global_dentry_cache, &dentry->d_lru_cache_node);
     dentry_unlock(dentry);
-    return;
+    return 0;
 }

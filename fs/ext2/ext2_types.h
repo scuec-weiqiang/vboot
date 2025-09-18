@@ -3,6 +3,8 @@
 
 #include "types.h"
 #include "bitmap.h"
+typedef u32 ext2_ino_t;
+typedef u32 ext2_bno_t;
 
 struct __attribute__((packed)) ext2_superblock
 {

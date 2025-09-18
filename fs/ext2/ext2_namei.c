@@ -8,8 +8,13 @@
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
 #include "ext2_types.h"
+#include "ext2_super.h"
 #include "ext2_dir.h"
+#include "ext2_inode.h"
+#include "ext2_cache.h"
 #include "vfs_types.h"
+#include "pcache.h"
+#include "icache.h"
 #include "check.h"
 
 /**
@@ -41,7 +46,7 @@ static int ext2_add(struct inode *i_parent, struct dentry *dentry, u32 i_mode)
 { 
     CHECK(i_parent != NULL, "", return -1;);
 
-    struct inode *new_inode = vfs_inew(i_parent->i_sb); // 创建新的inode 
+    struct inode *new_inode = inew(i_parent->i_sb); // 创建新的inode 
     ext2_init_new_inode(new_inode, i_mode);// 初始化新的inode 
     
     if(EXT2_GET_TYPE(i_mode) == EXT2_S_IFDIR)
@@ -49,7 +54,7 @@ static int ext2_add(struct inode *i_parent, struct dentry *dentry, u32 i_mode)
         ext2_init_dot_entries(new_inode, i_parent->i_ino); // 初始化 . 和 .. 目录项
     }
     dentry->d_inode = new_inode; // 关联dentry和新inode
-    vfs_iput(new_inode); // 写回缓存
+    iput(new_inode); // 写回缓存
 
     dir_slot_t slot = {0};
     ext2_find_slot(i_parent, dentry->name.len, &slot);
@@ -66,7 +71,7 @@ static int ext2_add(struct inode *i_parent, struct dentry *dentry, u32 i_mode)
         ((struct ext2_fs_info*)(i_parent->i_sb->s_private))->group_desc[ext2_ino_group(i_parent->i_sb,dentry->d_inode->i_ino)].bg_used_dirs_count++;
     }
 
-    vfs_icache_sync(); // 同步inode缓存
+    icache_sync(); // 同步inode缓存
     pcache_sync(); // 同步page缓存
     
     ext2_sync_cache(i_parent->i_sb); // 同步缓存 
@@ -84,7 +89,7 @@ int ext2_mkdir(struct inode *i_parent, struct dentry *dentry, u32 i_mode)
 
 int ext2_rmdir(struct inode *i_parent, struct dentry *dentry)
 {
-    
+   return 0;
 }
 
 int ext2_creat(struct inode *i_parent, struct dentry *dentry, u32 i_mode) 

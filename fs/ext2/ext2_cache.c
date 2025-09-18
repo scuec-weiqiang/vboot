@@ -138,7 +138,7 @@ int ext2_sync_block_bitmap_cache(struct superblock *vfs_sb)
     return 0;
 }
 
-int ext2_load_block_bitmap_cache(struct superblock *vfs_sb,u64 group)
+int ext2_load_block_bitmap_cache(struct superblock *vfs_sb,int group)
 {
     CHECK(vfs_sb != NULL,"",return -1;);
     CHECK(vfs_sb->adap != NULL,"",return -1;);
@@ -183,9 +183,9 @@ int ext2_select_block_group(struct superblock *vfs_sb)
     }
     else
     {
-        u64 max = 0;
+        int max = 0;
         int ret = -1;
-        for(u64 group=0;group<fs_info->s_groups_count;group++)
+        for(int group=0;group<fs_info->s_groups_count;group++)
         {
             if(fs_info->group_desc[group].bg_free_blocks_count>max)
             {

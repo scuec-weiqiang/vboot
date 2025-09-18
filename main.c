@@ -8,18 +8,21 @@
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
  */
 
-#include "printf.h"
+#include "printk.h"
 #include "boot_malloc.h"
 #include "vm.h"
 #include "virt_disk.h"
 #include "vfs.h"
 #include "elf.h"
 #include "mm.h"
+#include "riscv.h"
+#include "symbols.h"
 
 void init()
 {
     zero_bss();
-    maddr_def_init();
+    symbols_init();
+
     satp_w(0);
     medeleg_w(medeleg_r()|0xffffffff);// 将所有异常委托给S模式处理
     mideleg_w(mideleg_r()|(1<<1)|(1<<9)); // 将s模式软件中断，外部中断委托给s模式
@@ -29,11 +32,14 @@ void init()
     pmpcfg0_w(0xf);
     
     // 使能S模式外部中断，定时器中断和软件中断
-    s_extern_interrupt_enable();
-    s_soft_interrupt_enable();
     virt_disk_init();
     fs_init();
     malloc_init();
+
+    while(1)
+    {
+
+    }
 
     // struct file *f = vfs_open(path, 0);
     // char *elf = malloc(f->f_inode->i_size);
@@ -54,7 +60,7 @@ void init()
     // {
     //     if (elf_info->segs[i].type == PT_LOAD)
     //     {
-    //         printf("phdr %d: vaddr:%x, memsz:%x, filesz:%x, offset:%x, flags:%x\n", i, elf_info->segs[i].vaddr, elf_info->segs[i].memsz, elf_info->segs[i].filesz, elf_info->segs[i].offset, elf_info->segs[i].flags);
+    //         printk("phdr %d: vaddr:%x, memsz:%x, filesz:%x, offset:%x, flags:%x\n", i, elf_info->segs[i].vaddr, elf_info->segs[i].memsz, elf_info->segs[i].filesz, elf_info->segs[i].offset, elf_info->segs[i].flags);
     //         u8 *user_space = malloc(elf_info->segs[i].memsz); // 程序加载到内存里需要的空间
     //         memset(user_space, 0, elf_info->segs[i].memsz);
     //         memcpy(user_space, elf + elf_info->segs[i].offset, elf_info->segs[i].filesz);

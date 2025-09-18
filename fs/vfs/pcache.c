@@ -13,6 +13,8 @@
 #include "spinlock.h"
 #include "vfs_types.h"
 #include "check.h"
+#include "string.h"
+#include "boot_malloc.h"
 
 struct lru_cache *global_page_cache = NULL;
 
@@ -28,7 +30,7 @@ static void unlock(struct page *page)
 
 static struct page *create_page(struct inode *inode, pgoff_t index)
 {
-    struct page *p = malloc(sizeof(struct page));
+    struct page *p = (struct page*)malloc(sizeof(struct page));
     CHECK(p != NULL, "Memory allocation for page failed", return NULL;);
     memset(p, 0, sizeof(struct page));
     p->data = malloc(VFS_PAGE_SIZE);
@@ -49,7 +51,7 @@ static struct page *create_page(struct inode *inode, pgoff_t index)
     return p;
 }
 
-static void *vfs_destory_page(struct page *page)
+static int destroy_page(struct page *page)
 {
     if (page->data)
         free(page->data);
@@ -90,7 +92,7 @@ static int vfs_global_page_lru_free(struct lru_node *node)
     CHECK(node != NULL, "vfs_lru_free: node is NULL", return -1;);
 
     struct page *page = container_of(node, struct page, p_lru_cache_node);
-    return vfs_destory_page(page);
+    return destroy_page(page);
 }
 
 int pcache_init()

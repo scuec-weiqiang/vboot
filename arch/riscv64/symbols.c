@@ -10,7 +10,6 @@
 #include "types.h"
 
 extern char __text_start[], __text_end[];
-extern char __trap_start[], __trap_end[];
 extern char __rodata_start[], __rodata_end[];
 extern char __data_start[], __data_end[];
 extern char __bss_start[], __bss_end[];
@@ -21,9 +20,6 @@ extern char __heap_start[], __heap_end[];
 uintptr_t text_start;
 uintptr_t text_end;
 uintptr_t text_size;
-uintptr_t trap_start;
-uintptr_t trap_end;
-uintptr_t trap_size;
 uintptr_t rodata_start;
 uintptr_t rodata_end;
 uintptr_t rodata_size;
@@ -46,9 +42,6 @@ void symbols_init()
     text_start = (uintptr_t)&__text_start;
     text_end = (uintptr_t)&__text_end;
     text_size = (text_end - text_start);
-    trap_start = (uintptr_t)&__trap_start;
-    trap_end = (uintptr_t)&__trap_end;
-    trap_size = (trap_end - trap_start);
     rodata_start = (uintptr_t)&__rodata_start;
     rodata_end = (uintptr_t)&__rodata_end;
     rodata_size = (rodata_end - rodata_start);
@@ -76,7 +69,7 @@ void symbols_init()
  */
 void zero_bss() 
 {
-    for (char *p = bss_start; p < bss_end; p++) {
+    for (char *p = (char*)bss_start; p < (char*)bss_end; p++) {
         *p = 0;
     }
 }

@@ -8,8 +8,10 @@
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
  */
 #include "vfs_types.h"
+#include "fs_type.h"
 #include "dcache.h"
 #include "check.h"
+#include "boot_malloc.h"
 
 /* 挂载点链表 */
 struct list vfs_mount_points = LIST_HEAD_INIT(vfs_mount_points);
@@ -19,15 +21,15 @@ static struct dentry *g_root_dentry;
 
 int mount(const char *type_name, const char *bdev_name, int flags)
 {
-    CHECK((type_name != NULL), "Invalid type name", return NULL;);
-    CHECK((bdev_name != NULL), "Invalid block device name", return NULL;);
+    CHECK((type_name != NULL), "Invalid type name", return -1;);
+    CHECK((bdev_name != NULL), "Invalid block device name", return -1;);
 
     struct fs_type *fs_type = fs_get(type_name);
-    CHECK((fs_type != NULL), "Invalid fs type", return NULL;);
-    CHECK((fs_type->mount != NULL), "Invalid mount function", return NULL;);
+    CHECK((fs_type != NULL), "Invalid fs type", return -1;);
+    CHECK((fs_type->mount != NULL), "Invalid mount function", return -1;);
 
     struct block_device *bdev = block_device_open(bdev_name);
-    CHECK((bdev != NULL), "Invalid block device", return NULL;);
+    CHECK((bdev != NULL), "Invalid block device", return -1;);
 
     struct superblock *sb = fs_type->mount(fs_type, bdev, flags);
 
@@ -42,7 +44,7 @@ int mount(const char *type_name, const char *bdev_name, int flags)
     return 0;
 }
 
-int mount_root()
+int mount_rootfs()
 {
     CHECK(list_empty(&vfs_mount_points), "Root filesystem has already exists", return -1;);
     mount("ext2", "virt_disk", 0);
@@ -52,7 +54,7 @@ int mount_root()
     return 0;
 }
 
-struct dentry *vfs_get_root()
+struct dentry *get_root()
 {
     return g_root_dentry;
 }

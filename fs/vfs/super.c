@@ -21,7 +21,7 @@
 #include "string.h"
 #include "ext2_types.h"
 #include "boot_malloc.h"
-#include "printf.h"
+#include "printk.h"
 
 
 
@@ -48,7 +48,7 @@ struct superblock *alloc_super(struct fs_type *fs_type)
     // 6. 添加到全局超级块链表
     list_add(&sb->s_list, &superblocks_lhead);
     
-    printf("VFS: Allocated new superblock %p for filesystem %s\n",
+    printk("VFS: Allocated new superblock %p for filesystem %s\n",
            sb, fs_type ? fs_type->name : "unknown");
     
     return sb;
@@ -65,7 +65,7 @@ void free_super(struct superblock *sb)
     // 释放内存
     free(sb);
 
-    printf("VFS: Freed superblock %p\n", sb);
+    printk("VFS: Freed superblock %p\n", sb);
 }
 
 int sync_super(struct superblock *sb)

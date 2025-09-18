@@ -98,7 +98,7 @@ int _vprint(const char *fmt, va_list vl)
 
     int n = _vsprint(NULL, fmt, vl);
     if (n >= __PBUFF_SIZE) {
-        uart_puts("printf overflow!\n");
+        uart_puts("printk overflow!\n");
         while (1) {} // 死机
     }
 
@@ -110,7 +110,7 @@ int _vprint(const char *fmt, va_list vl)
 }
 
 /**
- * printf: 有锁
+ * printk: 有锁
  */
 int printk(const char *fmt, ...)
 {
@@ -123,7 +123,7 @@ int printk(const char *fmt, ...)
     return n;}
 
 /**
- * panic: 不可重入 printf
+ * panic: 不可重入 printk
  */
 void panic(const char *fmt, ...)
 {

@@ -122,18 +122,18 @@ int ext2_new_inode(struct inode *inode)
     return ino;
 }
 
-static hval_t inode_page_cache_hash(const struct hlist_node* node)
-{
-    struct page *page = container_of(node, struct page, p_lru_cache_node);
-    return page->index % 64;
-}
+// static hval_t inode_page_cache_hash(const struct hlist_node* node)
+// {
+//     struct page *page = container_of(node, struct page, p_lru_cache_node);
+//     return page->index % 64;
+// }
 
-static int inode_page_cache_compare(const struct hlist_node* node_a, const struct hlist_node* node_b)
-{
-    struct page *a = container_of(node_a, struct page, p_lru_cache_node);
-    struct page *b = container_of(node_b, struct page, p_lru_cache_node);
-    return a->index - b->index;
-}
+// static int inode_page_cache_compare(const struct hlist_node* node_a, const struct hlist_node* node_b)
+// {
+//     struct page *a = container_of(node_a, struct page, p_lru_cache_node);
+//     struct page *b = container_of(node_b, struct page, p_lru_cache_node);
+//     return a->index - b->index;
+// }
 
 /**
 * @brief 从ext2文件系统中读取inode信息

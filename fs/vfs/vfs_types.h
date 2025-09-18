@@ -28,7 +28,7 @@ struct fs_type;
 struct super_ops;
 struct inode_ops;
 struct file_ops;
-
+struct statfs;
 
 struct fs_type
 {
@@ -93,7 +93,7 @@ struct page
     bool dirty;     // 脏页标志
     struct inode *inode; // 所属 inode
     pgoff_t index;  // page index in file
-    u8 *data;       // 指向 PAGE_SIZE 内存
+    char *data;       // 指向 PAGE_SIZE 内存
 };
 
 struct aops
@@ -111,7 +111,7 @@ struct address_space
 
 struct inode_ops
 {
-    int *(*lookup)(struct inode *dir, struct dentry *dentry);
+    int (*lookup)(struct inode *dir, struct dentry *dentry);
     int (*mkdir)(struct inode *dir, struct dentry *dentry, u32 i_mode);
     int (*rmdir)(struct inode *dir, struct dentry *dentry);
 };
@@ -224,8 +224,8 @@ struct dentry
 
 struct file_ops
 {
-    int (*read)(struct inode*, void*, size_t, loff_t);
-    int (*write)(struct inode*, const void*, size_t, loff_t);
+    ssize_t (*read)(struct inode*, void*, size_t, loff_t*);
+    ssize_t (*write)(struct inode*, const void*, size_t, loff_t*);
     // int (*truncate)(struct  inode *inode, u64 size);
     // int (*sync)(struct  file *f); // 可选
 };
@@ -244,7 +244,7 @@ struct file
 struct mount_point
 {
     struct superblock *mnt_sb; // 挂载的超级块
-    struct dentry *mnt_root;   // 挂载点根目录
+    struct inode *mnt_root;   // 挂载点根目录
     struct list mnt_list;      // 链表节点
 };
 

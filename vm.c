@@ -7,7 +7,7 @@
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
-#include "printf.h"
+#include "printk.h"
 #include "virtio.h"
 #include "uart.h"
 #include "boot_malloc.h"
@@ -125,7 +125,7 @@ int map_pages(pgtbl_t *pgd, uintptr_t vaddr, uintptr_t paddr, size_t size, u64 f
         }
         // 设置页表项（PTE）的值
         *pte = PA2PTE(paddr) | flags | PTE_V;
-        // printf("va = %x,pa = %x,pte = %x,pte_value = %x\n",va,paddr,*pte,((paddr>>12)<<10));
+        // printk("va = %x,pa = %x,pte = %x,pte_value = %x\n",va,paddr,*pte,((paddr>>12)<<10));
     }
     return 0;
 }
@@ -177,6 +177,6 @@ int map_pages(pgtbl_t *pgd, uintptr_t vaddr, uintptr_t paddr, size_t size, u64 f
 
     
     
-//     // printf("kernel page table init success!\n");
+//     // printk("kernel page table init success!\n");
 // }
 

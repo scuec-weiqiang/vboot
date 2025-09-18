@@ -18,6 +18,7 @@
 #include "string.h"
 
 #include "icache.h"
+#include "boot_malloc.h"
 
 struct dentry* current = NULL;
 
@@ -64,8 +65,8 @@ struct dentry* mkdir(const char* path,u16 mode)
 
     char* path_copy = strdup(path); // 复制路径字符串，因为path_split会修改原字符串
 
-    char* basename = malloc(strlen(path_copy) + 1);
-    char* dirname = malloc(VFS_NAME_MAX + 1);
+    char* basename = (char*)malloc(strlen(path_copy) + 1);
+    char* dirname = (char*)malloc(VFS_NAME_MAX + 1);
 
     base_dir_split(path_copy, dirname, basename);
 
@@ -102,7 +103,7 @@ struct dentry* rmdir(const char* path)
 
 //     base_dir_split(path_copy, dirname, basename);
 
-//     d_parent = vfs_lookup(dirname);
+//     d_parent = lookup(dirname);
 //     if (d_parent == NULL) {
 
 //         d_child = NULL;
@@ -118,13 +119,13 @@ struct dentry* rmdir(const char* path)
 //     free(dirname);
 //     free(path_copy);
 //     return d_child; 
-
+return NULL;
 }
 
 struct file* open(const char *path, u32 flags)
 {
-    struct dentry *dentry = vfs_lookup(path);
-    struct file *file = malloc(sizeof(struct file));
+    struct dentry *dentry = lookup(path);
+    struct file *file = (struct file*)malloc(sizeof(struct file));
     file->f_dentry = dentry;
     file->f_inode = dentry->d_inode;
     file->f_flags = flags;
@@ -166,7 +167,7 @@ ssize_t write(struct file *file, const char *buf, size_t count)
 void vfs_test()
 {
 
-    // struct dentry* d = vfs_lookup("/hello.txt");
+    // struct dentry* d = look_up("/hello.txt");
     // struct dentry* d;
     // d = vfs_mkdir("/c",S_IFDIR | S_IDEFAULT);
     // d = vfs_mkdir("/d.txt",S_IFREG | S_IDEFAULT);

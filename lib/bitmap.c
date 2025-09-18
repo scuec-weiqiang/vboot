@@ -8,7 +8,7 @@
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
 #include "bitmap.h"
-#include "printf.h"
+#include "printk.h"
 #include "string.h"
 #include "boot_malloc.h"
 
@@ -25,7 +25,7 @@ struct bitmap* bitmap_create(size_t size)
 {
     if(size==0 || size>U64_MAX/8)
     {
-        printf("bitmap size error\n");
+        printk("bitmap size error\n");
         return NULL;
     }
 
@@ -34,7 +34,7 @@ struct bitmap* bitmap_create(size_t size)
     struct bitmap* bm = (struct bitmap *)malloc(sizeof(struct bitmap)+bytes_num);
     if(bm==NULL)
     {
-        printf("bitmap: bitmap malloc error\n");
+        printk("bitmap: bitmap malloc error\n");
         return NULL;
     }
 
@@ -56,13 +56,13 @@ int bitmap_set_bit(struct bitmap *bm, u64 index)
 
     if(bm==NULL)
     {
-        printf("bitmap: bitmap is not created\n");
+        printk("bitmap: bitmap is not created\n");
         return 0;
     }
 
     if(index>=bm->size)
     {
-        printf( ("bitmap: index out of range\n"));
+        printk( ("bitmap: index out of range\n"));
         return -1;
     }
 
@@ -79,12 +79,12 @@ int bitmap_clear_bit(struct bitmap *bm, u64 index)
 {
     if(bm==NULL)
     {
-        printf("bitmap: bitmap is not created\n");
+        printk("bitmap: bitmap is not created\n");
         return 0;
     }
     if(index>=bm->size)
     {
-        printf( ("bitmap: index out of range\n"));
+        printk( ("bitmap: index out of range\n"));
         return -1;
     }
 
@@ -111,13 +111,13 @@ int bitmap_test_bit(struct bitmap *bm, u64 index)
 {
     if(bm==NULL)
     {
-        printf("bitmap: bitmap is not created\n");
+        printk("bitmap: bitmap is not created\n");
         return 0;
     }
 
     if(index>=bm->size)
     {
-        printf( ("bitmap: index out of range\n"));
+        printk( ("bitmap: index out of range\n"));
         return -1;
     }
     u64 uint64_index = index / 64;
@@ -129,7 +129,7 @@ size_t bitmap_get_size(struct bitmap *bm)
 {
     if(bm==NULL)
     {
-        printf("bitmap: bitmap is not created\n");
+        printk("bitmap: bitmap is not created\n");
         return 0;
     }
     return bm->size;
@@ -139,7 +139,7 @@ size_t bitmap_update_size(struct bitmap *bm,u64 size)
 {
     if(bm==NULL)
     {
-        printf("bitmap: bitmap is not created\n");
+        printk("bitmap: bitmap is not created\n");
         return 0;
     }
 
@@ -151,7 +151,7 @@ size_t bitmap_get_bytes_num(struct bitmap *bm)
 {
     if(bm==NULL)
     {
-        printf("bitmap: bitmap is not created\n");
+        printk("bitmap: bitmap is not created\n");
         return 0;
     }
     return (bm->size+7)/8;
@@ -161,7 +161,7 @@ size_t bitmap_get_size_in_bytes(struct bitmap *bm)
 {
     if(bm==NULL)
     {
-        printf("bitmap: bitmap is not created\n");
+        printk("bitmap: bitmap is not created\n");
         return 0;
     }
     return sizeof(struct bitmap)+bitmap_get_bytes_num(bm);
@@ -171,7 +171,7 @@ int bitmap_scan_0(struct bitmap *bm)
 {
     if(bm==NULL)
     {
-        printf("bitmap: bitmap is not created\n");
+        printk("bitmap: bitmap is not created\n");
         return -1;
     }
 
@@ -180,11 +180,11 @@ int bitmap_scan_0(struct bitmap *bm)
         if(bm->arr[i]!=U64_MAX)
         {
             char* arr=(char*)&bm->arr[i];
-            for(char j=0;j<8;j++)
+            for(int j=0;j<8;j++)
             {
                 if(arr[j]!=U8_MAX)
                 {
-                    for(char k=0;k<8;k++)
+                    for(int k=0;k<8;k++)
                     {
                         if((arr[j]&(1<<k)) == 0)
                         {

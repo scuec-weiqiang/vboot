@@ -72,7 +72,7 @@ void uart_puts(char *s)
 void uart0_iqr()
 {   
     // char a = uart_getc();
-    // printf("%c",a);
+    // printk("%c",a);
     // if('\r'==a)
-    //     printf("\n");     
+    //     printk("\n");     
 }

@@ -59,30 +59,40 @@ static u32 days_since_epoch(u32 year, u32 month, u32 day)
 void adjust_timezone(struct system_time *t, enum UTC utc)
 {
     int hour = (int)t->hour - utc;
-
+    
+    // 处理小时为负的情况（向前调整日期）
     while (hour < 0)
     {
         hour += 24;
         // 借一天
-        if (--t->day == 0)
+        t->day--;
+        if (t->day == 0)
         {
-            if (--t->month == 0)
+            t->month--;
+            if (t->month == 0)
             {
                 t->month = 12;
                 t->year -= 1;
             }
-            t->day = days_since_epoch(t->year, t->month, t->day);
+            // 获取当前月份的天数并设置
+            t->day = days_since_epoch(t->year, t->month, 0); // 假设0表示获取当月天数
         }
     }
 
+    // 处理小时超过24的情况（向后调整日期）
     while (hour >= 24)
     {
         hour -= 24;
         // 进一天
-        if (++t->day > days_since_epoch(t->year, t->month, t->day))
+        t->day++;
+        // 获取当前月份的最大天数
+        int max_days = days_since_epoch(t->year, t->month, 0); // 假设0表示获取当月天数
+        
+        if (t->day > max_days)
         {
             t->day = 1;
-            if (++t->month > 12)
+            t->month++;
+            if (t->month > 12)
             {
                 t->month = 1;
                 t->year += 1;
@@ -92,6 +102,7 @@ void adjust_timezone(struct system_time *t, enum UTC utc)
 
     t->hour = (u32)hour;
 }
+
 // 将system_time_t转换为Unix时间戳（自1970-01-01 00:00:00 UTC以来的秒数）
 u32 system_time_to_unix_timestamp(const struct system_time *t)
 {

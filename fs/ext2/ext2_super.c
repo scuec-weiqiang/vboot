@@ -91,7 +91,7 @@ struct superblock* ext2_fill_super(struct fs_type *fs_type, struct block_device 
     extern struct super_ops ext2_s_ops;
     vfs_sb->s_ops = &ext2_s_ops;
 
-    struct inode *root_inode = vfs_create_inode(vfs_sb);
+    struct inode *root_inode = create_inode(vfs_sb);
     CHECK(root_inode!=NULL,"ext2_fill_super error!",goto clean;);
 
     root_inode->i_ino = EXT2_ROOT_INODE_IDX,
