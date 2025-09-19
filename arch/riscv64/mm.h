@@ -23,7 +23,7 @@
 #define SATP_MODE SATP_SV39 
 #define MAKE_SATP(pagetable) (SATP_MODE | (((u64)pagetable) >> 12))
 
-#define KERNEL_HIGH_VA 0xffffffffc0000000
+#define KERNEL_HIGH_VA 0xffffffffc0200000
 #define MAKE_KERNEL_VA(pa) (KERNEL_HIGH_VA + ((u64)(pa)))
 
 #define MMIO_BASE 0xffffffdf00000000

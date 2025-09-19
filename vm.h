@@ -15,10 +15,10 @@
 
 extern pgtbl_t* kernel_pgd;//kernel_page_global_directory 内核页全局目录
 
+extern void vm_init();
 extern pgtbl_t* get_child_pgtbl(pgtbl_t *parent_pgd, u64 vpn_level, u64 va, bool create);
 extern pte_t* page_walk(pgtbl_t *pgd, uintptr_t va, bool create);
 extern int map_pages(pgtbl_t *pgd, uintptr_t vaddr, uintptr_t paddr, size_t size, u64 flags);
-extern void kernel_page_table_init();
-extern void page_table_init(pgtbl_t *pgd);
+extern void early_page_table_init();
 
 #endif

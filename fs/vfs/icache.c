@@ -8,7 +8,7 @@
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
 #include "vfs_types.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 #include "check.h"
 #include "lru.h"
 #include "spinlock.h"

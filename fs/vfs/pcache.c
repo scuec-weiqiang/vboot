@@ -14,7 +14,7 @@
 #include "vfs_types.h"
 #include "check.h"
 #include "string.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 
 struct lru_cache *global_page_cache = NULL;
 

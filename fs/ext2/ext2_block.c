@@ -9,7 +9,7 @@
  */
 #include "vfs_types.h"
 #include "ext2_types.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 #include "check.h"
 #include "spinlock.h"
 #include "ext2_cache.h"

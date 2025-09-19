@@ -20,7 +20,7 @@
 #include "check.h"
 #include "string.h"
 #include "ext2_types.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 #include "printk.h"
 
 

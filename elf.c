@@ -10,7 +10,7 @@
 #include "types.h"
 #include "printk.h"
 #include "elf.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 #include "check.h"
 #include "string.h"
 

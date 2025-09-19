@@ -18,7 +18,7 @@
 
 #include "check.h"
 #include "list.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 #include "string.h"
 
 #define EXT2_ENTRY_LEN(name_len) (((sizeof(struct ext2_dir_entry_2) + (name_len) + 3) / 4) * 4)

@@ -1,9 +1,12 @@
-.section .text.init
+.section .text.boot
 .global _start
 _start:
+    // 清除中断
+    li t0 , 0
+    csrw sstatus , t0
 
     csrr tp, mhartid # 读取hartid暂存到tp中
-    bnez tp, wait_hart
+    bnez tp, _wait_hart
 
     # 栈设置
     la t0 , __stack_start
@@ -15,11 +18,10 @@ _start:
 
     # 跳转到C函数
     call init
-    # j .
 
-wait_hart:
+_wait_hart:
     wfi
-    j wait_hart
+    j _wait_hart
 
 .end
 

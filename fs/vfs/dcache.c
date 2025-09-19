@@ -4,7 +4,7 @@
 #include "vfs_types.h"
 #include "check.h"
 #include "string.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 #include "list.h"
 
 struct dentry *vfs_create_dentry(const char *name)

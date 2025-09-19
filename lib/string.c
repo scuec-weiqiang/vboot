@@ -9,7 +9,7 @@
  */
 
 #include "string.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 
 /**
  * @brief 将内存区域填充为指定值

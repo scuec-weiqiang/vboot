@@ -10,8 +10,11 @@
         "vfs_fs_type.h": "c",
         "string.h": "c",
         "fs_init.h": "c",
-        "boot_malloc.h": "c",
+        "malloc.h": "c",
         "block_device.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "printk.h": "c",
+        "uart.h": "c",
+        "riscv.h": "c"
     }
 }

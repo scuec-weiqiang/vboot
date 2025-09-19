@@ -8,6 +8,7 @@
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
 #include "types.h"
+#include "platform.h"
 
 struct uart_reg
 {
@@ -21,7 +22,6 @@ struct uart_reg
    u8 SPR;
 };
 
-#define UART_BASE  0x10000000
 #define UART0     (*(volatile struct uart_reg*)(UART_BASE))
 
 #define UART_TX_IDLE (1<<5)

@@ -69,7 +69,8 @@ void symbols_init()
  */
 void zero_bss() 
 {
-    for (char *p = (char*)bss_start; p < (char*)bss_end; p++) {
+    for (char *p = (char*)bss_start; p < (char*)bss_end; p++) 
+    {
         *p = 0;
     }
 }

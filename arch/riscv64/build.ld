@@ -4,7 +4,6 @@ ENTRY(_start)
 STACK_SIZE = 4096;          /* 单个核心栈大小（字节） */
 RAM_BASE = 0x80000000;      /* RAM起始地址 */
 RAM_SIZE = 2M;       /* RAM大小（2MB） */
-HEAP_SIZE = 2M;        /* 堆大小（2MB） */
 
 MEMORY 
 {
@@ -15,7 +14,7 @@ SECTIONS
 {
     . = ORIGIN(RAM);
     .text : ALIGN(4) 
-    {
+    {   *(.text.boot)
         . = ALIGN(4096);
         _text_start = .;
          *(.text .text.*)
@@ -51,12 +50,12 @@ SECTIONS
     } > RAM 
 
     . = ALIGN(4096);
+    _heap_start = .;
     
     _stack_end = RAM_BASE + RAM_SIZE;       /* 栈底（高地址） */
     _stack_start = _stack_end - STACK_SIZE;
 
     _heap_end = _stack_start;
-    _heap_start = _heap_end - HEAP_SIZE;
 
     PROVIDE_HIDDEN(__text_start = _text_start);
     PROVIDE_HIDDEN(__text_end = _text_end);

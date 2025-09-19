@@ -11,7 +11,7 @@
 #include "fs_type.h"
 #include "dcache.h"
 #include "check.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 
 /* 挂载点链表 */
 struct list vfs_mount_points = LIST_HEAD_INIT(vfs_mount_points);

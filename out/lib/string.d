@@ -1,6 +1,6 @@
-out/./lib/string.o: lib/string.c lib/string.h lib/types.h boot_malloc.h \
+out/./lib/string.o: lib/string.c lib/string.h lib/types.h malloc.h \
  lib/types.h
 lib/string.h:
 lib/types.h:
-boot_malloc.h:
+malloc.h:
 lib/types.h:

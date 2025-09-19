@@ -18,7 +18,7 @@
 #include "string.h"
 
 #include "icache.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 
 struct dentry* current = NULL;
 

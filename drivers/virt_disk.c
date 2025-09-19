@@ -13,7 +13,7 @@
 #include "string.h"
 #include "block_device.h"
 #include "printk.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 
 struct virt_disk
 {
@@ -214,9 +214,9 @@ int virt_disk_init()
         return -1;
     }
 
-    virt_disk.disk_queue.desc = (struct virtq_desc*)malloc(sizeof(struct virtq_desc));
-    virt_disk.disk_queue.avail = (struct virtq_avail*)malloc(sizeof(struct virtq_avail));
-    virt_disk.disk_queue.used = (struct virtq_used*)malloc(sizeof(struct virtq_used));
+    virt_disk.disk_queue.desc = (struct virtq_desc*)page_alloc(1);
+    virt_disk.disk_queue.avail = (struct virtq_avail*)page_alloc(1);
+    virt_disk.disk_queue.used = (struct virtq_used*)page_alloc(1);
 
     virtio->queue_num = QUEUE_NUM;
 

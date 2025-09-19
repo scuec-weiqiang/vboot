@@ -10,7 +10,7 @@
 #include "ext2_inode.h"
 #include "vfs_types.h"
 #include "ext2_types.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 #include "check.h"
 #include "string.h"
 #include "spinlock.h"

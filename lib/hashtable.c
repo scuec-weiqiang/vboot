@@ -11,7 +11,7 @@
 #include "hlist.h"
 #include "check.h"
 #include "utils.h"
-#include "boot_malloc.h"
+#include "malloc.h"
 
 typedef u64 hval_t;
 
