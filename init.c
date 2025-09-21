@@ -3,7 +3,7 @@
  * @Description:
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-05-07 19:18:08
- * @LastEditTime: 2025-09-21 14:40:30
+ * @LastEditTime: 2025-09-21 16:26:50
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
  */
@@ -20,9 +20,15 @@
 #include "string.h"
 
 #define ALIGN_UP(x, align) (((x) + (align)-1) & ~((align)-1))
+u64 read_csr_mc(void){ u64 x; asm volatile("csrr %0, mcause":"=r"(x)); return x; }
+u64 read_csr_mt(void){ u64 x; asm volatile("csrr %0, mtval":"=r"(x)); return x; }
+u64 read_csr_mepc(void){ u64 x; asm volatile("csrr %0, mepc":"=r"(x)); return x; }
+
 
 void trap()
 {
+    printk("mcause=%xu mepc=%xu mtval=%u\n",
+        read_csr_mc(), read_csr_mepc(), read_csr_mt());
     while (1)
     {
         /* code */
@@ -37,7 +43,7 @@ void jump_to_kernel()
     read(kernel_img,elf,kernel_img->f_inode->i_size);
     struct elf_info *elf_info = elf_parse(elf);
 
-    u8 *kernel_space = (u8*)(uintptr_t)stack_end; // 程序加载到内存里需要的空间
+    u8 *kernel_space = (u8*)(uintptr_t)boot_stack_end; // 程序加载到内存里需要的空间
     u64 offset = 0;
     for (int i = 0; i < elf_info->phnum; i++)
     {

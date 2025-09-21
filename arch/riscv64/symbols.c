@@ -1,9 +1,9 @@
 /**
- * @FilePath: /ZZZ/arch/riscv64/maddr_def.c
+ * @FilePath: /vboot/arch/riscv64/symbols.c
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-09-17 13:05:59
- * @LastEditTime: 2025-09-17 19:24:00
+ * @LastEditTime: 2025-09-21 14:57:14
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
@@ -17,46 +17,46 @@ extern char __stack_start[], __stack_end[];
 extern char __heap_start[], __heap_end[];
 
 
-uintptr_t text_start;
-uintptr_t text_end;
-uintptr_t text_size;
-uintptr_t rodata_start;
-uintptr_t rodata_end;
-uintptr_t rodata_size;
-uintptr_t data_start;
-uintptr_t data_end;
-uintptr_t data_size;
-uintptr_t bss_start;
-uintptr_t bss_end;
-uintptr_t bss_size;
-uintptr_t stack_start;
-uintptr_t stack_end;
-uintptr_t stack_size;
-uintptr_t heap_start;
-uintptr_t heap_end;
-uintptr_t heap_size;
+uintptr_t boot_text_start;
+uintptr_t boot_text_end;
+uintptr_t boot_text_size;
+uintptr_t boot_rodata_start;
+uintptr_t boot_rodata_end;
+uintptr_t boot_rodata_size;
+uintptr_t boot_data_start;
+uintptr_t boot_data_end;
+uintptr_t boot_data_size;
+uintptr_t boot_bss_start;
+uintptr_t boot_bss_end;
+uintptr_t boot_bss_size;
+uintptr_t boot_stack_start;
+uintptr_t boot_stack_end;
+uintptr_t boot_stack_size;
+uintptr_t boot_heap_start;
+uintptr_t boot_heap_end;
+uintptr_t boot_heap_size;
 
 
 void symbols_init()
 {
-    text_start = (uintptr_t)&__text_start;
-    text_end = (uintptr_t)&__text_end;
-    text_size = (text_end - text_start);
-    rodata_start = (uintptr_t)&__rodata_start;
-    rodata_end = (uintptr_t)&__rodata_end;
-    rodata_size = (rodata_end - rodata_start);
-    data_start = (uintptr_t)&__data_start;
-    data_end = (uintptr_t)&__data_end;
-    data_size = (data_end - data_start);
-    bss_start = (uintptr_t)&__bss_start;
-    bss_end = (uintptr_t)&__bss_end;
-    bss_size = (bss_end - bss_start);
-    stack_start = (uintptr_t)&__stack_start;
-    stack_end = (uintptr_t)&__stack_end;
-    stack_size = (stack_end - stack_start);
-    heap_start = (uintptr_t)&__heap_start;
-    heap_end = (uintptr_t)&__heap_end;
-    heap_size = (heap_end - heap_start);
+    boot_text_start = (uintptr_t)&__text_start;
+    boot_text_end = (uintptr_t)&__text_end;
+    boot_text_size = (boot_text_end - boot_text_start);
+    boot_rodata_start = (uintptr_t)&__rodata_start;
+    boot_rodata_end = (uintptr_t)&__rodata_end;
+    boot_rodata_size = (boot_rodata_end - boot_rodata_start);
+    boot_data_start = (uintptr_t)&__data_start;
+    boot_data_end = (uintptr_t)&__data_end;
+    boot_data_size = (boot_data_end - boot_data_start);
+    boot_bss_start = (uintptr_t)&__bss_start;
+    boot_bss_end = (uintptr_t)&__bss_end;
+    boot_bss_size = (boot_bss_end - boot_bss_start);
+    boot_stack_start = (uintptr_t)&__stack_start;
+    boot_stack_end = (uintptr_t)&__stack_end;
+    boot_stack_size = (boot_stack_end - boot_stack_start);
+    boot_heap_start = (uintptr_t)&__heap_start;
+    boot_heap_end = (uintptr_t)&__heap_end;
+    boot_heap_size = (boot_heap_end - boot_heap_start);
 }
 
 /**
@@ -69,7 +69,7 @@ void symbols_init()
  */
 void zero_bss() 
 {
-    for (char *p = (char*)bss_start; p < (char*)bss_end; p++) 
+    for (char *p = (char*)boot_bss_start; p < (char*)boot_bss_end; p++) 
     {
         *p = 0;
     }

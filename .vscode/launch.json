@@ -20,10 +20,10 @@
                     "description": "Set architecture",
                     "text": "set architecture riscv:rv64"
                 },
-                {
-                    "description": "Break at entry",
-                    "text": "break *0x80000000"
-                },
+                // {
+                //     "description": "Break at entry",
+                //     "text": "break *0x80000000"
+                // },
                 {
                     "description": "Break at entry",
                     "text": "break *0xffffffffc0200000"

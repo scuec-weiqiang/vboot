@@ -9,8 +9,8 @@ static size_t free_size = 0;
 
 void malloc_init()
 {
-    alloc_pos = heap_start; // 可分配内存的起始地址
-    free_size = heap_size;  // 可分配内存的大小
+    alloc_pos = boot_heap_start; // 可分配内存的起始地址
+    free_size = boot_heap_size;  // 可分配内存的大小
 }
 
 

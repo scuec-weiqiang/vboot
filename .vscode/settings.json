@@ -16,6 +16,7 @@
         "printk.h": "c",
         "uart.h": "c",
         "riscv.h": "c",
-        "symbols.h": "c"
+        "symbols.h": "c",
+        "virtio.h": "c"
     }
 }

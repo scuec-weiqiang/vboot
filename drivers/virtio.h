@@ -1,9 +1,9 @@
 /**
- * @FilePath: /vboot/virtio.h
+ * @FilePath: /vboot/drivers/virtio.h
  * @Description:
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-05-20 20:12:02
- * @LastEditTime: 2025-09-17 21:03:37
+ * @LastEditTime: 2025-09-21 17:35:00
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
  */

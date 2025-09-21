@@ -3,7 +3,7 @@
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-05-08 22:00:50
- * @LastEditTime: 2025-09-21 14:39:33
+ * @LastEditTime: 2025-09-21 15:57:49
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
@@ -18,7 +18,7 @@
 #include "plic.h"
 #include "clint.h"
 
-pgtbl_t* pgd = NULL;//kernel_page_global_directory 内核页全局目录
+pgtbl_t* early_pgd = NULL;//kernel_page_global_directory 内核页全局目录
 
 /**
  * @brief 从父页表中获取子页表
@@ -135,33 +135,33 @@ int map_pages(pgtbl_t *pgd, uintptr_t vaddr, uintptr_t paddr, size_t size, u64 f
 
 void early_page_table_init()
 {
-    pgd = (pgtbl_t*)page_alloc(1);
-    if(pgd == NULL) return;
-    memset(pgd,0,PAGE_SIZE);
+    early_pgd = (pgtbl_t*)page_alloc(1);
+    if(early_pgd == NULL) return;
+    memset(early_pgd,0,PAGE_SIZE);
 
     // 恒等映射bootloader代码段，数据段，栈以及堆的保留页到虚拟地址空间 
-    map_pages(pgd,(uintptr_t)text_start,(uintptr_t)text_start,(size_t)text_size,PTE_R | PTE_X);
-    map_pages(pgd,(uintptr_t)rodata_start ,(uintptr_t)rodata_start,(size_t)rodata_size,PTE_R);
-    map_pages(pgd,(uintptr_t)data_start ,(uintptr_t)data_start,(size_t)data_size,PTE_R | PTE_W);
-    map_pages(pgd,(uintptr_t)bss_start ,(uintptr_t)bss_start,(size_t)bss_size,PTE_R | PTE_W);
-    map_pages(pgd,(uintptr_t)heap_start,(uintptr_t)heap_start,(size_t)heap_size,PTE_R | PTE_W);
-    map_pages(pgd,(uintptr_t)stack_start,(uintptr_t)stack_start,(size_t)stack_size*2,PTE_R | PTE_W);
+    map_pages(early_pgd,(uintptr_t)boot_text_start,(uintptr_t)boot_text_start,(size_t)boot_text_size,PTE_R | PTE_X);
+    map_pages(early_pgd,(uintptr_t)boot_rodata_start ,(uintptr_t)boot_rodata_start,(size_t)boot_rodata_size,PTE_R);
+    map_pages(early_pgd,(uintptr_t)boot_data_start ,(uintptr_t)boot_data_start,(size_t)boot_data_size,PTE_R | PTE_W);
+    map_pages(early_pgd,(uintptr_t)boot_bss_start ,(uintptr_t)boot_bss_start,(size_t)boot_bss_size,PTE_R | PTE_W);
+    map_pages(early_pgd,(uintptr_t)boot_heap_start,(uintptr_t)boot_heap_start,(size_t)boot_heap_size,PTE_R | PTE_W);
+    map_pages(early_pgd,(uintptr_t)boot_stack_start,(uintptr_t)boot_stack_start,(size_t)boot_stack_size*2,PTE_R | PTE_W);
 
     //恒等映射外设寄存器地址
-    map_pages(pgd,(uintptr_t)CLINT_BASE,(uintptr_t)CLINT_BASE,11*PAGE_SIZE,PTE_R | PTE_W);
-    map_pages(pgd,(uintptr_t)PLIC_BASE,(uintptr_t)PLIC_BASE,0x200*PAGE_SIZE,PTE_R | PTE_W);
-    map_pages(pgd,(uintptr_t)UART_BASE,(uintptr_t)UART_BASE,PAGE_SIZE,PTE_R | PTE_W);
-    map_pages(pgd,(uintptr_t)VIRTIO_MMIO_BASE,(uintptr_t)VIRTIO_MMIO_BASE,PAGE_SIZE,PTE_R | PTE_W);
-    map_pages(pgd,(uintptr_t)0x50000000,(uintptr_t)0x50000000,PAGE_SIZE,PTE_R);
+    map_pages(early_pgd,(uintptr_t)CLINT_BASE,(uintptr_t)CLINT_BASE,11*PAGE_SIZE,PTE_R | PTE_W);
+    map_pages(early_pgd,(uintptr_t)PLIC_BASE,(uintptr_t)PLIC_BASE,0x200*PAGE_SIZE,PTE_R | PTE_W);
+    map_pages(early_pgd,(uintptr_t)UART_BASE,(uintptr_t)UART_BASE,PAGE_SIZE,PTE_R | PTE_W);
+    map_pages(early_pgd,(uintptr_t)VIRTIO_MMIO_BASE,(uintptr_t)VIRTIO_MMIO_BASE,PAGE_SIZE,PTE_R | PTE_W);
+    map_pages(early_pgd,(uintptr_t)0x50000000,(uintptr_t)0x50000000,PAGE_SIZE,PTE_R);
 
-    map_pages(pgd,(uintptr_t)0x80200000,(uintptr_t)0x80200000,(size_t)0x7e00000,PTE_R | PTE_W | PTE_X);
-    map_pages(pgd,(uintptr_t)0xffffffffc0200000,(uintptr_t)0x80200000,(size_t)0x7e00000,PTE_R | PTE_W | PTE_X);
+    map_pages(early_pgd,(uintptr_t)0x80200000,(uintptr_t)0x80200000,(size_t)0x7e00000,PTE_R | PTE_W | PTE_X);
+    map_pages(early_pgd,(uintptr_t)0xffffffffc0200000,(uintptr_t)0x80200000,(size_t)0x7e00000,PTE_R | PTE_W | PTE_X);
     
-
+    
     
     //设置satp寄存器
     asm volatile("sfence.vma zero, zero");
-    asm volatile("csrw satp,%0"::"r"(MAKE_SATP(pgd)));
+    asm volatile("csrw satp,%0"::"r"(MAKE_SATP(early_pgd)));
 
     // printk("kernel page table init success!\n");
 }
