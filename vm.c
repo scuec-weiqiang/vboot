@@ -3,7 +3,7 @@
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-05-08 22:00:50
- * @LastEditTime: 2025-09-17 23:51:34
+ * @LastEditTime: 2025-09-21 14:39:33
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
@@ -146,8 +146,6 @@ void early_page_table_init()
     map_pages(pgd,(uintptr_t)bss_start ,(uintptr_t)bss_start,(size_t)bss_size,PTE_R | PTE_W);
     map_pages(pgd,(uintptr_t)heap_start,(uintptr_t)heap_start,(size_t)heap_size,PTE_R | PTE_W);
     map_pages(pgd,(uintptr_t)stack_start,(uintptr_t)stack_start,(size_t)stack_size*2,PTE_R | PTE_W);
-    map_pages(pgd,(uintptr_t)0x80200000,(uintptr_t)0x80200000,(size_t)0x400000,PTE_R | PTE_W | PTE_X);
-    map_pages(pgd,(uintptr_t)0xffffffffc0200000,(uintptr_t)0x80200000,(size_t)0x400000,PTE_R | PTE_W | PTE_X);
 
     //恒等映射外设寄存器地址
     map_pages(pgd,(uintptr_t)CLINT_BASE,(uintptr_t)CLINT_BASE,11*PAGE_SIZE,PTE_R | PTE_W);
@@ -155,6 +153,10 @@ void early_page_table_init()
     map_pages(pgd,(uintptr_t)UART_BASE,(uintptr_t)UART_BASE,PAGE_SIZE,PTE_R | PTE_W);
     map_pages(pgd,(uintptr_t)VIRTIO_MMIO_BASE,(uintptr_t)VIRTIO_MMIO_BASE,PAGE_SIZE,PTE_R | PTE_W);
     map_pages(pgd,(uintptr_t)0x50000000,(uintptr_t)0x50000000,PAGE_SIZE,PTE_R);
+
+    map_pages(pgd,(uintptr_t)0x80200000,(uintptr_t)0x80200000,(size_t)0x7e00000,PTE_R | PTE_W | PTE_X);
+    map_pages(pgd,(uintptr_t)0xffffffffc0200000,(uintptr_t)0x80200000,(size_t)0x7e00000,PTE_R | PTE_W | PTE_X);
+    
 
     
     //设置satp寄存器

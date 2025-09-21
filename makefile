@@ -5,7 +5,7 @@
 # 添加你的源文件目录
 ARCH ?= riscv64
 
-DISK = ../ZZZ-OS/disk.img
+DISK = ../ZZZ/disk.img
 
 DIR = 	./ \
 		./fs \

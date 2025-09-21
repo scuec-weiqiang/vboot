@@ -25,12 +25,16 @@
                     "text": "break *0x80000000"
                 },
                 {
+                    "description": "Break at entry",
+                    "text": "break *0xffffffffc0200000"
+                },
+                {
                     "description": "Load boot symbols",
                     "text": "add-symbol-file ${workspaceFolder}/out/${workspaceFolderBasename}.elf 0x80000000"
                 },
                 {
                     "description": "Load kernel symbols",
-                    "text": "add-symbol-file ${workspaceFolder}/../ZZZ-OS/user/out/user.img 0xffffffffc0200000"
+                    "text": "add-symbol-file ${workspaceFolder}/../ZZZ/out/ZZZ.img 0xffffffffc0200000"
                 },
             ],
             "preLaunchTask": "wsl-qemu-start"
