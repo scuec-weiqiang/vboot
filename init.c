@@ -38,7 +38,7 @@ void trap()
 
 void jump_to_kernel()
 {
-    struct file *kernel_img = open("/ZZZ.img",0);
+    struct file *kernel_img = open("/ZZZ-OS.img",0);
     char *elf = (char*)malloc((size_t)kernel_img->f_inode->i_size);
     read(kernel_img,elf,kernel_img->f_inode->i_size);
     struct elf_info *elf_info = elf_parse(elf);
