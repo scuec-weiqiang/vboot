@@ -3,7 +3,7 @@
  * @Description:
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-05-07 19:18:08
- * @LastEditTime: 2025-09-21 16:26:50
+ * @LastEditTime: 2025-09-23 21:07:55
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
  */
@@ -76,10 +76,9 @@ void init(uintptr_t mhartid)
     trap_init();
     satp_w(0);
     medeleg_w(medeleg_r()|0xffffffff);// 将所有异常委托给S模式处理
-    mideleg_w(mideleg_r()|(1<<1)|(1<<5)|(1<<9)); // 将软件中断，外部中断委托给s模式
+    mideleg_w(mideleg_r()|(1<<1)|(1<<5)|(1<<9)); // 将软件中断，定时器中断，外部中断委托给s模式
 
-    // // enable supervisor-mode timer interrupts. 
-    // mie_w(mie_r() | (1<<5)); 
+    mie_w(mie_r() | (1<<5)); 
     // enable the sstc extension (i.e. stimecmp).
     menvcfg_w(menvcfg_r() | (1L << 63)); 
     // allow supervisor to use stimecmp and time. 
@@ -101,8 +100,4 @@ void init(uintptr_t mhartid)
     jump_to_kernel();
 }
 
-
-// proc_init();
-// proc_t* init_proc = proc_create("/user.elf");
-// proc_run(init_proc);
 

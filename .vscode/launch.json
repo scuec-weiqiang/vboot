@@ -36,6 +36,10 @@
                     "description": "Load kernel symbols",
                     "text": "add-symbol-file ${workspaceFolder}/../ZZZ-OS/out/ZZZ-OS.img 0xffffffffc0200000"
                 },
+                {
+                    "description": "Load user symbols",
+                    "text": "add-symbol-file ${workspaceFolder}/../ZZZ-OS/user/out/user.elf 0x10000"
+                },
             ],
             "preLaunchTask": "wsl-qemu-start"
         }
