@@ -3,7 +3,7 @@
 _start:
     // 清除中断
     li t0 , 0
-    csrw sstatus , t0
+    csrw mstatus , t0
 
     csrr tp, mhartid # 读取hartid暂存到tp中
     bnez tp, _wait_hart
@@ -16,12 +16,12 @@ _start:
     la t2, __stack_end
     sub sp,t2,t1 # 栈底 = _stack_end - hartid * STACK_SIZE
 
-    # 跳转到C函数
-    call init
+    mv a0, tp # 将hartid传递给init函数
+    j init
 
 _wait_hart:
     wfi
-    j _wait_hart
+
 
 .end
 

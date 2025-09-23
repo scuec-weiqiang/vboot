@@ -27,7 +27,7 @@
         typedef unsigned long       u64;
         typedef unsigned long       size_t;
         typedef unsigned long       uintptr_t;
-
+        typedef u64                 reg_t;
         #define U8_MAX     (0xff)
         #define U16_MAX    (0xffff)
         #define U32_MAX    (0xffffffff)

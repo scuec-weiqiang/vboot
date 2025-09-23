@@ -213,7 +213,6 @@ void early_page_table_init()
     asm volatile("sfence.vma zero, zero");
     asm volatile("csrw satp,%0"::"r"(MAKE_SATP(early_pgd)));
 
-    // printk("kernel page table init success!\n");
 }
 
 void vm_init()

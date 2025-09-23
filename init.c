@@ -18,23 +18,13 @@
 #include "riscv.h"
 #include "symbols.h"
 #include "string.h"
+#include "interrupt.h"
 
 #define ALIGN_UP(x, align) (((x) + (align)-1) & ~((align)-1))
 u64 read_csr_mc(void){ u64 x; asm volatile("csrr %0, mcause":"=r"(x)); return x; }
 u64 read_csr_mt(void){ u64 x; asm volatile("csrr %0, mtval":"=r"(x)); return x; }
 u64 read_csr_mepc(void){ u64 x; asm volatile("csrr %0, mepc":"=r"(x)); return x; }
 
-
-void trap()
-{
-    printk("mcause=%xu mepc=%xu mtval=%u\n",
-        read_csr_mc(), read_csr_mepc(), read_csr_mt());
-    while (1)
-    {
-        /* code */
-    }
-    
-}
 
 void jump_to_kernel()
 {
@@ -55,10 +45,10 @@ void jump_to_kernel()
             offset += elf_info->segs[i].memsz;
         }
     }
-    
     mstatus_w(sstatus_r() & ~(3<<11));
     mstatus_w(sstatus_r() | (1<<11));
     mepc_w((uintptr_t)elf_info->entry);
+    mscratch_w(boot_stack_end);
     asm volatile("mret");
 }
 
@@ -76,25 +66,38 @@ void jump_to_kernel()
 * 8. 使能 S 模式外部中断、定时器中断和软件中断。
 * 9. 调用 M_TO_S 函数将当前模式切换到 S 模式。
 */
-void init()
+void init(uintptr_t mhartid)
 {
-    zero_bss();
-    symbols_init();
-    mtvec_w((uintptr_t)trap);
+    if(mhartid == 0)
+    {
+        zero_bss();
+        symbols_init();
+    }
+    trap_init();
     satp_w(0);
     medeleg_w(medeleg_r()|0xffffffff);// 将所有异常委托给S模式处理
     mideleg_w(mideleg_r()|(1<<1)|(1<<5)|(1<<9)); // 将软件中断，外部中断委托给s模式
+
+    // // enable supervisor-mode timer interrupts. 
+    // mie_w(mie_r() | (1<<5)); 
+    // enable the sstc extension (i.e. stimecmp).
+    menvcfg_w(menvcfg_r() | (1L << 63)); 
+    // allow supervisor to use stimecmp and time. 
+    mcounteren_w(mcounteren_r() | 2);
 
     // 将整个用户空间（39位）设置保护
     pmpaddr0_w(0x3fffffffffffff);
     pmpcfg0_w(0xf);
 
-    stvec_w((uintptr_t)trap);
-    malloc_init();
-    virt_disk_init();
-    fs_init();
+    if(mhartid == 0)
+    {
+        malloc_init();
+        virt_disk_init();
+        fs_init();
+    }
     early_page_table_init();
-
+    m_global_interrupt_enable();
+    
     jump_to_kernel();
 }
 
