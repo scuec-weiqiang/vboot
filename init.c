@@ -20,12 +20,6 @@
 #include "string.h"
 #include "interrupt.h"
 
-#define ALIGN_UP(x, align) (((x) + (align)-1) & ~((align)-1))
-u64 read_csr_mc(void){ u64 x; asm volatile("csrr %0, mcause":"=r"(x)); return x; }
-u64 read_csr_mt(void){ u64 x; asm volatile("csrr %0, mtval":"=r"(x)); return x; }
-u64 read_csr_mepc(void){ u64 x; asm volatile("csrr %0, mepc":"=r"(x)); return x; }
-
-
 void jump_to_kernel()
 {
     struct file *kernel_img = open("/ZZZ-OS.img",0);

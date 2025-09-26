@@ -38,7 +38,11 @@
                 },
                 {
                     "description": "Load user symbols",
-                    "text": "add-symbol-file ${workspaceFolder}/../ZZZ-OS/user/out/user.elf 0x10000"
+                    "text": "add-symbol-file ${workspaceFolder}/../user/out/user.elf 0x10000"
+                },
+                {
+                    "description": "Load user2 symbols",
+                    "text": "add-symbol-file ${workspaceFolder}/../2_user/out/2_user.elf 0x10000"
                 },
             ],
             "preLaunchTask": "wsl-qemu-start"

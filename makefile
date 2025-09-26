@@ -5,7 +5,7 @@
 # 添加你的源文件目录
 ARCH ?= riscv64
 
-DISK = ../ZZZ-OS/disk.img
+DISK = ../disk.img
 
 DIR = 	./ \
 		./fs \
@@ -97,7 +97,7 @@ clean:
 #qemu模拟器
 # QEMU = qemu-system-riscv64
 QEMU = /usr/local/qemu-riscv/bin/qemu-system-riscv64
-QFLAGS = -nographic -smp 1 -machine virt -bios none -kernel $(TARGET) -cpu rv64,sstc=on
+QFLAGS = -nographic -smp 1 -machine virt -bios $(TARGET) -cpu rv64,sstc=on
 QFLAGS += -drive file=$(DISK),if=none,format=raw,id=disk0,cache=writeback
 QFLAGS += -device virtio-blk-device,drive=disk0,bus=virtio-mmio-bus.0
 QFLAGS += -d guest_errors,unimp,trace:time_memory*
