@@ -1,9 +1,9 @@
 /**
- * @FilePath: /ZZZ/kernel/fs/ext2/ext2_inode.c
+ * @FilePath: /vboot/fs/ext2/ext2_inode.c
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-08-15 15:04:59
- * @LastEditTime: 2025-09-13 16:13:06
+ * @LastEditTime: 2025-10-09 23:16:28
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
@@ -176,7 +176,7 @@ int ext2_read_inode(struct inode *inode_ret)
     inode_ret->i_atime.tv_sec = raw_inode->i_atime;
     inode_ret->i_ctime.tv_sec = raw_inode->i_ctime;
     inode_ret->i_mtime.tv_sec = raw_inode->i_mtime;
-  
+
     return inode_ret->i_ino;
 }
 

@@ -34,15 +34,15 @@
                 },
                 {
                     "description": "Load kernel symbols",
-                    "text": "add-symbol-file ${workspaceFolder}/../ZZZ-OS/out/ZZZ-OS.img 0xffffffffc0200000"
+                    "text": "add-symbol-file ${workspaceFolder}/../ZZZ-OS/build/kernel.img 0xffffffffc0200000"
                 },
                 {
-                    "description": "Load user symbols",
-                    "text": "add-symbol-file ${workspaceFolder}/../user/out/user.elf 0x10000"
+                    "description": "Load user1 symbols",
+                    "text": "add-symbol-file ${workspaceFolder}/../proc1/out/proc1.elf 0x10000"
                 },
                 {
                     "description": "Load user2 symbols",
-                    "text": "add-symbol-file ${workspaceFolder}/../2_user/out/2_user.elf 0x10000"
+                    "text": "add-symbol-file ${workspaceFolder}/../proc2/out/proc2.elf 0x10000"
                 },
             ],
             "preLaunchTask": "wsl-qemu-start"

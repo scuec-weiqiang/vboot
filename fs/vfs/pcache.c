@@ -1,9 +1,9 @@
 /**
- * @FilePath: /ZZZ/kernel/fs/vfs/vfs_pcache.c
+ * @FilePath: /vboot/fs/vfs/pcache.c
  * @Description:
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-09-01 16:25:09
- * @LastEditTime: 2025-09-07 22:41:23
+ * @LastEditTime: 2025-10-09 00:58:38
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
  */
@@ -150,7 +150,7 @@ int pput(struct page *page)
     return 0;
 }
 
-int vfs_pcache_sync_func(struct lru_cache *cache, struct lru_node *node)
+int vfs_pcache_sync_func(struct lru_node *node)
 {
     struct page *page = container_of(node, struct page, p_lru_cache_node);
     lock(page);

@@ -3,7 +3,7 @@
  * @Description:
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-05-07 19:18:08
- * @LastEditTime: 2025-09-23 21:07:55
+ * @LastEditTime: 2025-11-17 21:05:57
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
  */
@@ -22,10 +22,14 @@
 
 void jump_to_kernel()
 {
-    struct file *kernel_img = open("/ZZZ-OS.img",0);
+    struct file *kernel_img = open("/kernel.img",0);
     char *elf = (char*)malloc((size_t)kernel_img->f_inode->i_size);
     read(kernel_img,elf,kernel_img->f_inode->i_size);
     struct elf_info *elf_info = elf_parse(elf);
+
+    struct file *dtb = open("/qemu_virt.dtb",0);
+    char *dtb_buff = (char*)malloc((size_t)dtb->f_inode->i_size);
+    read(dtb,dtb_buff,dtb->f_inode->i_size);
 
     u8 *kernel_space = (u8*)(uintptr_t)boot_stack_end; // 程序加载到内存里需要的空间
     u64 offset = 0;
@@ -33,7 +37,6 @@ void jump_to_kernel()
     {
         if (elf_info->segs[i].type == PT_LOAD)
         {
-            
             memset(kernel_space+offset, 0, elf_info->segs[i].memsz);
             memcpy(kernel_space+offset, elf + elf_info->segs[i].offset, elf_info->segs[i].filesz);
             offset += elf_info->segs[i].memsz;
@@ -43,6 +46,7 @@ void jump_to_kernel()
     mstatus_w(sstatus_r() | (1<<11));
     mepc_w((uintptr_t)elf_info->entry);
     mscratch_w(boot_stack_end);
+    asm volatile("mv a0, %0" : : "r"(dtb_buff));
     asm volatile("mret");
 }
 

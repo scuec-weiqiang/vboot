@@ -24,213 +24,213 @@ Linker script and memory map
  *(.text .text.*)
  .text          0x0000000080001000      0x850 out/.//elf.o
                 0x0000000080001416                elf_parse
- .text          0x0000000080001850      0x436 out/.//init.o
+ .text          0x0000000080001850      0x47e out/.//init.o
                 0x0000000080001a4e                jump_to_kernel
-                0x0000000080001bd6                init
- .text          0x0000000080001c86      0x19a out/.//malloc.o
-                0x0000000080001c86                malloc_init
-                0x0000000080001cbc                malloc
-                0x0000000080001d5e                page_alloc
-                0x0000000080001e0e                free
- .text          0x0000000080001e20      0x9bc out/.//vm.o
-                0x0000000080001e96                get_child_pgtbl
-                0x0000000080001ff6                page_walk
-                0x0000000080002116                mmap
-                0x000000008000234a                map_range
-                0x0000000080002562                early_page_table_init
-                0x00000000800027ba                vm_init
- .text          0x00000000800027dc      0x3b6 out/./fs/block_adapter.o
-                0x00000000800027dc                block_adapter_register
-                0x00000000800028e2                block_adapter_destory
-                0x0000000080002900                block_adapter_open
-                0x000000008000296a                block_adapter_read
-                0x0000000080002a5c                block_adapter_write
-                0x0000000080002b4e                block_adapter_get_block_size
-                0x0000000080002b70                block_adapter_get_sectors_per_block
- .text          0x0000000080002b92       0xee out/./fs/block_device.o
-                0x0000000080002b92                block_device_register
-                0x0000000080002c0e                block_device_open
- .text          0x0000000080002c80      0x90c out/./fs/ext2//ext2_block.o
-                0x0000000080002d0e                ext2_bno_group
-                0x0000000080002d82                ext2_alloc_bno
-                0x0000000080002f68                ext2_release_bno
-                0x0000000080003284                ext2_block_mapping
- .text          0x000000008000358c     0x10f4 out/./fs/ext2//ext2_cache.o
-                0x00000000800035ce                ext2_sync_inode_bitmap_cache
-                0x0000000080003742                ext2_load_inode_bitmap_cache
-                0x00000000800039fa                ext2_sync_inode_table_cache
-                0x0000000080003bb2                ext2_load_inode_table_cache
-                0x0000000080003e6e                ext2_select_inode_group
-                0x0000000080003f9e                ext2_sync_block_bitmap_cache
-                0x000000008000411a                ext2_load_block_bitmap_cache
-                0x00000000800043ce                ext2_select_block_group
-                0x000000008000453e                ext2_sync_cache
- .text          0x0000000080004680     0x101a out/./fs/ext2//ext2_dir.o
-                0x00000000800046fe                ext2_init_dot_entries
-                0x000000008000493a                ext2_find
-                0x0000000080004b1c                ext2_init_new_inode
-                0x000000008000519e                ext2_init_new_entry
-                0x000000008000540a                ext2_find_slot
-                0x0000000080005536                ext2_add_entry
-                0x0000000080005682                ext2_remove_entry
- .text          0x000000008000569a      0x29c out/./fs/ext2//ext2_file.o
-                0x00000000800056dc                ext2_file_read
-                0x0000000080005916                ext2_file_write
- .text          0x0000000080005936      0xd18 out/./fs/ext2//ext2_inode.o
-                0x0000000080005978                ext2_ino_group
-                0x00000000800059aa                ext2_alloc_ino
-                0x0000000080005ba4                ext2_release_ino
-                0x0000000080005da0                ext2_create_inode
-                0x00000000800060a6                ext2_new_inode
-                0x00000000800061d0                ext2_read_inode
-                0x00000000800064a4                ext2_write_inode
- .text          0x000000008000664e      0x374 out/./fs/ext2//ext2_namei.o
-                0x0000000080006690                ext2_lookup
-                0x0000000080006942                ext2_mkdir
-                0x0000000080006976                ext2_rmdir
-                0x000000008000698e                ext2_creat
- .text          0x00000000800069c2      0x26e out/./fs/ext2//ext2_page.o
-                0x00000000800069c2                ext2_readpage
-                0x0000000080006ac6                ext2_writepage
- .text          0x0000000080006c30      0xaf2 out/./fs/ext2//ext2_super.o
-                0x0000000080006c72                ext2_fill_super
-                0x0000000080007496                ext2_kill_super
-                0x00000000800074ca                ext2_sync_super
- .text          0x0000000080007722      0x8e6 out/./fs/vfs//dcache.o
-                0x0000000080007884                vfs_create_dentry
-                0x0000000080007a14                vfs_destroy_dentry
-                0x0000000080007c18                dcache_init
-                0x0000000080007c9c                dcache_destroy
-                0x0000000080007cbe                dnew
-                0x0000000080007e2e                dget
-                0x0000000080007f88                dput
- .text          0x0000000080008008       0x30 out/./fs/vfs//fs_init.o
-                0x0000000080008008                fs_init
- .text          0x0000000080008038      0x3c4 out/./fs/vfs//fs_type.o
-                0x000000008000814e                fs_register
-                0x0000000080008272                fs_unregister
-                0x0000000080008394                fs_get
- .text          0x00000000800083fc      0x95c out/./fs/vfs//icache.o
-                0x0000000080008536                destroy_inode
-                0x0000000080008622                create_inode
-                0x0000000080008774                inew
-                0x0000000080008956                icache_init
-                0x00000000800089da                icache_destroy
-                0x00000000800089fc                iget
-                0x0000000080008b86                iput
-                0x0000000080008ce8                icache_sync
- .text          0x0000000080008d58      0x3c4 out/./fs/vfs//mount.o
-                0x0000000080008e34                mount
-                0x0000000080009048                mount_rootfs
-                0x0000000080009104                get_root
- .text          0x000000008000911c      0x3a0 out/./fs/vfs//path.o
-                0x000000008000915e                path_split
-                0x00000000800092a0                base_dir_split
- .text          0x00000000800094bc      0x6a0 out/./fs/vfs//pcache.o
-                0x000000008000982e                pcache_init
-                0x00000000800098b2                pcache_destory
-                0x00000000800098d4                pget
-                0x00000000800099a6                pput
-                0x0000000080009a44                vfs_pcache_sync_func
-                0x0000000080009aec                pcache_sync
- .text          0x0000000080009b5c      0x2fe out/./fs/vfs//super.o
-                0x0000000080009c72                alloc_super
-                0x0000000080009d3a                free_super
-                0x0000000080009dac                sync_super
- .text          0x0000000080009e5a      0x534 out/./fs/vfs//vfs.o
-                0x0000000080009e9c                lookup
-                0x0000000080009f92                mkdir
-                0x000000008000a09a                rmdir
-                0x000000008000a0ae                open
-                0x000000008000a134                read
-                0x000000008000a26c                write
-                0x000000008000a380                vfs_test
- .text          0x000000008000a38e      0x1ec out/./arch/riscv64//symbols.o
-                0x000000008000a38e                symbols_init
-                0x000000008000a534                zero_bss
- .text          0x000000008000a57a      0x46e out/./arch/riscv64//trap_handler.o
-                0x000000008000a6a8                trap_init
-                0x000000008000a6c8                s_soft_interrupt_handler
-                0x000000008000a6f0                m_soft_interrupt_handler
-                0x000000008000a71a                s_timer_interrupt_handler
-                0x000000008000a730                m_timer_interrupt_handler
-                0x000000008000a746                s_extern_interrupt_handler
-                0x000000008000a7b0                m_extern_interrupt_handler
-                0x000000008000a81a                trap_handler
-                0x000000008000a9d6                page_fault_handler
- .text          0x000000008000a9e8      0x422 out/./drivers/time.o
-                0x000000008000ab36                adjust_timezone
-                0x000000008000ac8e                system_time_to_unix_timestamp
-                0x000000008000ad86                get_current_time
-                0x000000008000adca                get_current_unix_timestamp
- .text          0x000000008000ae0a      0x168 out/./drivers/uart.o
-                0x000000008000ae0a                uart_init
-                0x000000008000aec4                uart_putc
-                0x000000008000aefa                uart_getc
-                0x000000008000af28                uart_puts
-                0x000000008000af64                uart0_iqr
- .text          0x000000008000af72      0x774 out/./drivers/virt_disk.o
-                0x000000008000b08c                virt_disk_rw
-                0x000000008000b3b0                virt_disk_get_capacity
-                0x000000008000b3dc                disk_write_sector
-                0x000000008000b40a                disk_read_sector
-                0x000000008000b438                virt_disk_init
- .text          0x000000008000b6e6      0x1b2 out/./drivers/virtio.o
-                0x000000008000b6e6                virtio_blk_init
- .text          0x000000008000b898      0x44a out/./lib/bitmap.o
-                0x000000008000b898                bitmap_create
-                0x000000008000b922                bitmap_destory
-                0x000000008000b940                bitmap_set_bit
-                0x000000008000b9d2                bitmap_clear_bit
-                0x000000008000ba68                bitmap_test_bit
-                0x000000008000baf0                bitmap_get_size
-                0x000000008000bb22                bitmap_update_size
-                0x000000008000bb62                bitmap_get_bytes_num
-                0x000000008000bb98                bitmap_get_size_in_bytes
-                0x000000008000bbd0                bitmap_scan_0
- .text          0x000000008000bce2      0x6a0 out/./lib/hashtable.o
-                0x000000008000bddc                hashtable_init
-                0x000000008000bfec                hashtable_destroy
-                0x000000008000c05c                hashtable_lookup
-                0x000000008000c15c                hashtable_insert
-                0x000000008000c22e                hashtable_remove
-                0x000000008000c2ce                hashtable_size
-                0x000000008000c328                hashtable_node_count
- .text          0x000000008000c382      0xc2c out/./lib/lru.o
-                0x000000008000c4fc                lru_init
-                0x000000008000c6d4                lru_node_init
-                0x000000008000c752                lru_destroy
-                0x000000008000c802                lru_hash_lookup
-                0x000000008000c91a                lru_hash_insert
-                0x000000008000ca0c                lru_hash_remove
-                0x000000008000cb46                lru_cache_insert
-                0x000000008000ccb2                lru_cache_remove
-                0x000000008000cdd6                lru_ref
-                0x000000008000ce40                lru_unref
-                0x000000008000cec8                lru_walk
- .text          0x000000008000cfae      0x4fc out/./lib/printk.o
-                0x000000008000cfae                num2char
-                0x000000008000d14a                _vsprint
-                0x000000008000d36c                _vprint
-                0x000000008000d3e6                printk
-                0x000000008000d43a                panic
- .text          0x000000008000d4aa      0x348 out/./lib/string.o
-                0x000000008000d4aa                memset
-                0x000000008000d504                memcpy
-                0x000000008000d56a                strcpy
-                0x000000008000d5cc                strncpy
-                0x000000008000d656                strlen
-                0x000000008000d694                strcmp
-                0x000000008000d6fa                strncmp
-                0x000000008000d79e                strdup
- .text          0x000000008000d7f2       0xca out/./lib/utils.o
-                0x000000008000d7f2                next_power_of_two
-                0x000000008000d888                is_power_of_two
- .text          0x000000008000d8bc        0x0 out/./arch/riscv64//boot.o
- .text          0x000000008000d8bc       0xca out/./arch/riscv64//trap.o
-                0x000000008000d8bc                m_trap_entry
+                0x0000000080001c1e                init
+ .text          0x0000000080001cce      0x19a out/.//malloc.o
+                0x0000000080001cce                malloc_init
+                0x0000000080001d04                malloc
+                0x0000000080001da6                page_alloc
+                0x0000000080001e56                free
+ .text          0x0000000080001e68      0x9bc out/.//vm.o
+                0x0000000080001ede                get_child_pgtbl
+                0x000000008000203e                page_walk
+                0x000000008000215e                mmap
+                0x0000000080002392                map_range
+                0x00000000800025aa                early_page_table_init
+                0x0000000080002802                vm_init
+ .text          0x0000000080002824      0x3b6 out/./fs/block_adapter.o
+                0x0000000080002824                block_adapter_register
+                0x000000008000292a                block_adapter_destory
+                0x0000000080002948                block_adapter_open
+                0x00000000800029b2                block_adapter_read
+                0x0000000080002aa4                block_adapter_write
+                0x0000000080002b96                block_adapter_get_block_size
+                0x0000000080002bb8                block_adapter_get_sectors_per_block
+ .text          0x0000000080002bda       0xee out/./fs/block_device.o
+                0x0000000080002bda                block_device_register
+                0x0000000080002c56                block_device_open
+ .text          0x0000000080002cc8      0x90c out/./fs/ext2//ext2_block.o
+                0x0000000080002d56                ext2_bno_group
+                0x0000000080002dca                ext2_alloc_bno
+                0x0000000080002fb0                ext2_release_bno
+                0x00000000800032cc                ext2_block_mapping
+ .text          0x00000000800035d4     0x10f4 out/./fs/ext2//ext2_cache.o
+                0x0000000080003616                ext2_sync_inode_bitmap_cache
+                0x000000008000378a                ext2_load_inode_bitmap_cache
+                0x0000000080003a42                ext2_sync_inode_table_cache
+                0x0000000080003bfa                ext2_load_inode_table_cache
+                0x0000000080003eb6                ext2_select_inode_group
+                0x0000000080003fe6                ext2_sync_block_bitmap_cache
+                0x0000000080004162                ext2_load_block_bitmap_cache
+                0x0000000080004416                ext2_select_block_group
+                0x0000000080004586                ext2_sync_cache
+ .text          0x00000000800046c8     0x101a out/./fs/ext2//ext2_dir.o
+                0x0000000080004746                ext2_init_dot_entries
+                0x0000000080004982                ext2_find
+                0x0000000080004b64                ext2_init_new_inode
+                0x00000000800051e6                ext2_init_new_entry
+                0x0000000080005452                ext2_find_slot
+                0x000000008000557e                ext2_add_entry
+                0x00000000800056ca                ext2_remove_entry
+ .text          0x00000000800056e2      0x2bc out/./fs/ext2//ext2_file.o
+                0x0000000080005724                ext2_file_read
+                0x000000008000597e                ext2_file_write
+ .text          0x000000008000599e      0xd18 out/./fs/ext2//ext2_inode.o
+                0x00000000800059e0                ext2_ino_group
+                0x0000000080005a12                ext2_alloc_ino
+                0x0000000080005c0c                ext2_release_ino
+                0x0000000080005e08                ext2_create_inode
+                0x000000008000610e                ext2_new_inode
+                0x0000000080006238                ext2_read_inode
+                0x000000008000650c                ext2_write_inode
+ .text          0x00000000800066b6      0x374 out/./fs/ext2//ext2_namei.o
+                0x00000000800066f8                ext2_lookup
+                0x00000000800069aa                ext2_mkdir
+                0x00000000800069de                ext2_rmdir
+                0x00000000800069f6                ext2_creat
+ .text          0x0000000080006a2a      0x26e out/./fs/ext2//ext2_page.o
+                0x0000000080006a2a                ext2_readpage
+                0x0000000080006b2e                ext2_writepage
+ .text          0x0000000080006c98      0xaf2 out/./fs/ext2//ext2_super.o
+                0x0000000080006cda                ext2_fill_super
+                0x00000000800074fe                ext2_kill_super
+                0x0000000080007532                ext2_sync_super
+ .text          0x000000008000778a      0x8e6 out/./fs/vfs//dcache.o
+                0x00000000800078ec                vfs_create_dentry
+                0x0000000080007a7c                vfs_destroy_dentry
+                0x0000000080007c80                dcache_init
+                0x0000000080007d04                dcache_destroy
+                0x0000000080007d26                dnew
+                0x0000000080007e96                dget
+                0x0000000080007ff0                dput
+ .text          0x0000000080008070       0x30 out/./fs/vfs//fs_init.o
+                0x0000000080008070                fs_init
+ .text          0x00000000800080a0      0x3c4 out/./fs/vfs//fs_type.o
+                0x00000000800081b6                fs_register
+                0x00000000800082da                fs_unregister
+                0x00000000800083fc                fs_get
+ .text          0x0000000080008464      0x95c out/./fs/vfs//icache.o
+                0x000000008000859e                destroy_inode
+                0x000000008000868a                create_inode
+                0x00000000800087dc                inew
+                0x00000000800089be                icache_init
+                0x0000000080008a42                icache_destroy
+                0x0000000080008a64                iget
+                0x0000000080008bee                iput
+                0x0000000080008d50                icache_sync
+ .text          0x0000000080008dc0      0x3c4 out/./fs/vfs//mount.o
+                0x0000000080008e9c                mount
+                0x00000000800090b0                mount_rootfs
+                0x000000008000916c                get_root
+ .text          0x0000000080009184      0x3a0 out/./fs/vfs//path.o
+                0x00000000800091c6                path_split
+                0x0000000080009308                base_dir_split
+ .text          0x0000000080009524      0x69c out/./fs/vfs//pcache.o
+                0x0000000080009896                pcache_init
+                0x000000008000991a                pcache_destory
+                0x000000008000993c                pget
+                0x0000000080009a0e                pput
+                0x0000000080009aac                vfs_pcache_sync_func
+                0x0000000080009b50                pcache_sync
+ .text          0x0000000080009bc0      0x2fe out/./fs/vfs//super.o
+                0x0000000080009cd6                alloc_super
+                0x0000000080009d9e                free_super
+                0x0000000080009e10                sync_super
+ .text          0x0000000080009ebe      0x534 out/./fs/vfs//vfs.o
+                0x0000000080009f00                lookup
+                0x0000000080009ff6                mkdir
+                0x000000008000a0fe                rmdir
+                0x000000008000a112                open
+                0x000000008000a198                read
+                0x000000008000a2d0                write
+                0x000000008000a3e4                vfs_test
+ .text          0x000000008000a3f2      0x1ec out/./arch/riscv64//symbols.o
+                0x000000008000a3f2                symbols_init
+                0x000000008000a598                zero_bss
+ .text          0x000000008000a5de      0x46e out/./arch/riscv64//trap_handler.o
+                0x000000008000a70c                trap_init
+                0x000000008000a72c                s_soft_interrupt_handler
+                0x000000008000a754                m_soft_interrupt_handler
+                0x000000008000a77e                s_timer_interrupt_handler
+                0x000000008000a794                m_timer_interrupt_handler
+                0x000000008000a7aa                s_extern_interrupt_handler
+                0x000000008000a814                m_extern_interrupt_handler
+                0x000000008000a87e                trap_handler
+                0x000000008000aa3a                page_fault_handler
+ .text          0x000000008000aa4c      0x422 out/./drivers/time.o
+                0x000000008000ab9a                adjust_timezone
+                0x000000008000acf2                system_time_to_unix_timestamp
+                0x000000008000adea                get_current_time
+                0x000000008000ae2e                get_current_unix_timestamp
+ .text          0x000000008000ae6e      0x168 out/./drivers/uart.o
+                0x000000008000ae6e                uart_init
+                0x000000008000af28                uart_putc
+                0x000000008000af5e                uart_getc
+                0x000000008000af8c                uart_puts
+                0x000000008000afc8                uart0_iqr
+ .text          0x000000008000afd6      0x774 out/./drivers/virt_disk.o
+                0x000000008000b0f0                virt_disk_rw
+                0x000000008000b414                virt_disk_get_capacity
+                0x000000008000b440                disk_write_sector
+                0x000000008000b46e                disk_read_sector
+                0x000000008000b49c                virt_disk_init
+ .text          0x000000008000b74a      0x1b2 out/./drivers/virtio.o
+                0x000000008000b74a                virtio_blk_init
+ .text          0x000000008000b8fc      0x44a out/./lib/bitmap.o
+                0x000000008000b8fc                bitmap_create
+                0x000000008000b986                bitmap_destory
+                0x000000008000b9a4                bitmap_set_bit
+                0x000000008000ba36                bitmap_clear_bit
+                0x000000008000bacc                bitmap_test_bit
+                0x000000008000bb54                bitmap_get_size
+                0x000000008000bb86                bitmap_update_size
+                0x000000008000bbc6                bitmap_get_bytes_num
+                0x000000008000bbfc                bitmap_get_size_in_bytes
+                0x000000008000bc34                bitmap_scan_0
+ .text          0x000000008000bd46      0x6a0 out/./lib/hashtable.o
+                0x000000008000be40                hashtable_init
+                0x000000008000c050                hashtable_destroy
+                0x000000008000c0c0                hashtable_lookup
+                0x000000008000c1c0                hashtable_insert
+                0x000000008000c292                hashtable_remove
+                0x000000008000c332                hashtable_size
+                0x000000008000c38c                hashtable_node_count
+ .text          0x000000008000c3e6      0xc2c out/./lib/lru.o
+                0x000000008000c560                lru_init
+                0x000000008000c738                lru_node_init
+                0x000000008000c7b6                lru_destroy
+                0x000000008000c866                lru_hash_lookup
+                0x000000008000c97e                lru_hash_insert
+                0x000000008000ca70                lru_hash_remove
+                0x000000008000cbaa                lru_cache_insert
+                0x000000008000cd16                lru_cache_remove
+                0x000000008000ce3a                lru_ref
+                0x000000008000cea4                lru_unref
+                0x000000008000cf2c                lru_walk
+ .text          0x000000008000d012      0x4fc out/./lib/printk.o
+                0x000000008000d012                num2char
+                0x000000008000d1ae                _vsprint
+                0x000000008000d3d0                _vprint
+                0x000000008000d44a                printk
+                0x000000008000d49e                panic
+ .text          0x000000008000d50e      0x348 out/./lib/string.o
+                0x000000008000d50e                memset
+                0x000000008000d568                memcpy
+                0x000000008000d5ce                strcpy
+                0x000000008000d630                strncpy
+                0x000000008000d6ba                strlen
+                0x000000008000d6f8                strcmp
+                0x000000008000d75e                strncmp
+                0x000000008000d802                strdup
+ .text          0x000000008000d856       0xca out/./lib/utils.o
+                0x000000008000d856                next_power_of_two
+                0x000000008000d8ec                is_power_of_two
+ .text          0x000000008000d920        0x0 out/./arch/riscv64//boot.o
+ .text          0x000000008000d920       0xca out/./arch/riscv64//trap.o
+                0x000000008000d920                m_trap_entry
                 0x000000008000e000                . = ALIGN (0x1000)
- *fill*         0x000000008000d986      0x67a 
+ *fill*         0x000000008000d9ea      0x616 
                 0x000000008000e000                _text_end = .
 
 .rodata         0x000000008000e000     0x3000
@@ -239,69 +239,69 @@ Linker script and memory map
  *(.rodata .rodata.* .srodata .srodata.*)
  .rodata        0x000000008000e000      0x342 out/.//elf.o
  *fill*         0x000000008000e342        0x6 
- .rodata        0x000000008000e348        0xc out/.//init.o
- *fill*         0x000000008000e354        0x4 
- .rodata        0x000000008000e358       0x1e out/.//malloc.o
- *fill*         0x000000008000e376        0x2 
- .rodata        0x000000008000e378      0x22a out/.//vm.o
- *fill*         0x000000008000e5a2        0x6 
- .srodata       0x000000008000e5a8        0x5 out/.//vm.o
- *fill*         0x000000008000e5ad        0x3 
- .rodata        0x000000008000e5b0      0x13b out/./fs/ext2//ext2_block.o
- *fill*         0x000000008000e6eb        0x5 
- .rodata        0x000000008000e6f0      0x310 out/./fs/ext2//ext2_cache.o
- .rodata        0x000000008000ea00      0x187 out/./fs/ext2//ext2_dir.o
- *fill*         0x000000008000eb87        0x1 
- .rodata        0x000000008000eb88      0x13f out/./fs/ext2//ext2_file.o
- *fill*         0x000000008000ecc7        0x1 
- .rodata        0x000000008000ecc8      0x2d1 out/./fs/ext2//ext2_inode.o
- *fill*         0x000000008000ef99        0x7 
- .rodata        0x000000008000efa0       0xb1 out/./fs/ext2//ext2_namei.o
- *fill*         0x000000008000f051        0x7 
- .rodata        0x000000008000f058      0x340 out/./fs/ext2//ext2_super.o
- .rodata        0x000000008000f398      0x2ac out/./fs/vfs//dcache.o
- *fill*         0x000000008000f644        0x4 
- .srodata       0x000000008000f648       0x15 out/./fs/vfs//dcache.o
- *fill*         0x000000008000f65d        0x3 
- .rodata        0x000000008000f660      0x146 out/./fs/vfs//fs_type.o
- *fill*         0x000000008000f7a6        0x2 
- .rodata        0x000000008000f7a8      0x304 out/./fs/vfs//icache.o
- *fill*         0x000000008000faac        0x4 
- .srodata       0x000000008000fab0       0x15 out/./fs/vfs//icache.o
- *fill*         0x000000008000fac5        0x3 
- .rodata        0x000000008000fac8      0x1f5 out/./fs/vfs//mount.o
- *fill*         0x000000008000fcbd        0x3 
- .srodata       0x000000008000fcc0        0x6 out/./fs/vfs//mount.o
- *fill*         0x000000008000fcc6        0x2 
- .rodata        0x000000008000fcc8       0xa7 out/./fs/vfs//path.o
- *fill*         0x000000008000fd6f        0x1 
- .rodata        0x000000008000fd70      0x21c out/./fs/vfs//pcache.o
- *fill*         0x000000008000ff8c        0x4 
- .srodata       0x000000008000ff90        0x5 out/./fs/vfs//pcache.o
- *fill*         0x000000008000ff95        0x3 
- .rodata        0x000000008000ff98      0x1d3 out/./fs/vfs//super.o
- *fill*         0x000000008001016b        0x5 
- .rodata        0x0000000080010170      0x134 out/./fs/vfs//vfs.o
- *fill*         0x00000000800102a4        0x4 
- .srodata       0x00000000800102a8       0x1e out/./fs/vfs//vfs.o
- *fill*         0x00000000800102c6        0x2 
- .rodata        0x00000000800102c8      0x238 out/./arch/riscv64//trap_handler.o
- .srodata       0x0000000080010500        0x8 out/./drivers/time.o
-                0x0000000080010500                system_time
- .rodata        0x0000000080010508        0xc out/./drivers/time.o
- *fill*         0x0000000080010514        0x4 
- .rodata        0x0000000080010518       0x32 out/./drivers/virt_disk.o
- *fill*         0x000000008001054a        0x6 
- .rodata        0x0000000080010550       0x74 out/./lib/bitmap.o
- *fill*         0x00000000800105c4        0x4 
- .rodata        0x00000000800105c8      0x2a5 out/./lib/hashtable.o
- *fill*         0x000000008001086d        0x3 
- .rodata        0x0000000080010870      0x339 out/./lib/lru.o
- *fill*         0x0000000080010ba9        0x7 
- .srodata       0x0000000080010bb0        0x8 out/./lib/lru.o
- .rodata        0x0000000080010bb8       0x8a out/./lib/printk.o
+ .rodata        0x000000008000e348       0x1f out/.//init.o
+ *fill*         0x000000008000e367        0x1 
+ .rodata        0x000000008000e368       0x1e out/.//malloc.o
+ *fill*         0x000000008000e386        0x2 
+ .rodata        0x000000008000e388      0x22a out/.//vm.o
+ *fill*         0x000000008000e5b2        0x6 
+ .srodata       0x000000008000e5b8        0x5 out/.//vm.o
+ *fill*         0x000000008000e5bd        0x3 
+ .rodata        0x000000008000e5c0      0x13b out/./fs/ext2//ext2_block.o
+ *fill*         0x000000008000e6fb        0x5 
+ .rodata        0x000000008000e700      0x310 out/./fs/ext2//ext2_cache.o
+ .rodata        0x000000008000ea10      0x187 out/./fs/ext2//ext2_dir.o
+ *fill*         0x000000008000eb97        0x1 
+ .rodata        0x000000008000eb98      0x13f out/./fs/ext2//ext2_file.o
+ *fill*         0x000000008000ecd7        0x1 
+ .rodata        0x000000008000ecd8      0x2d1 out/./fs/ext2//ext2_inode.o
+ *fill*         0x000000008000efa9        0x7 
+ .rodata        0x000000008000efb0       0xb1 out/./fs/ext2//ext2_namei.o
+ *fill*         0x000000008000f061        0x7 
+ .rodata        0x000000008000f068      0x340 out/./fs/ext2//ext2_super.o
+ .rodata        0x000000008000f3a8      0x2ac out/./fs/vfs//dcache.o
+ *fill*         0x000000008000f654        0x4 
+ .srodata       0x000000008000f658       0x15 out/./fs/vfs//dcache.o
+ *fill*         0x000000008000f66d        0x3 
+ .rodata        0x000000008000f670      0x146 out/./fs/vfs//fs_type.o
+ *fill*         0x000000008000f7b6        0x2 
+ .rodata        0x000000008000f7b8      0x304 out/./fs/vfs//icache.o
+ *fill*         0x000000008000fabc        0x4 
+ .srodata       0x000000008000fac0       0x15 out/./fs/vfs//icache.o
+ *fill*         0x000000008000fad5        0x3 
+ .rodata        0x000000008000fad8      0x1f5 out/./fs/vfs//mount.o
+ *fill*         0x000000008000fccd        0x3 
+ .srodata       0x000000008000fcd0        0x6 out/./fs/vfs//mount.o
+ *fill*         0x000000008000fcd6        0x2 
+ .rodata        0x000000008000fcd8       0xa7 out/./fs/vfs//path.o
+ *fill*         0x000000008000fd7f        0x1 
+ .rodata        0x000000008000fd80      0x21c out/./fs/vfs//pcache.o
+ *fill*         0x000000008000ff9c        0x4 
+ .srodata       0x000000008000ffa0        0x5 out/./fs/vfs//pcache.o
+ *fill*         0x000000008000ffa5        0x3 
+ .rodata        0x000000008000ffa8      0x1d3 out/./fs/vfs//super.o
+ *fill*         0x000000008001017b        0x5 
+ .rodata        0x0000000080010180      0x134 out/./fs/vfs//vfs.o
+ *fill*         0x00000000800102b4        0x4 
+ .srodata       0x00000000800102b8       0x1e out/./fs/vfs//vfs.o
+ *fill*         0x00000000800102d6        0x2 
+ .rodata        0x00000000800102d8      0x238 out/./arch/riscv64//trap_handler.o
+ .srodata       0x0000000080010510        0x8 out/./drivers/time.o
+                0x0000000080010510                system_time
+ .rodata        0x0000000080010518        0xc out/./drivers/time.o
+ *fill*         0x0000000080010524        0x4 
+ .rodata        0x0000000080010528       0x32 out/./drivers/virt_disk.o
+ *fill*         0x000000008001055a        0x6 
+ .rodata        0x0000000080010560       0x74 out/./lib/bitmap.o
+ *fill*         0x00000000800105d4        0x4 
+ .rodata        0x00000000800105d8      0x2a5 out/./lib/hashtable.o
+ *fill*         0x000000008001087d        0x3 
+ .rodata        0x0000000080010880      0x339 out/./lib/lru.o
+ *fill*         0x0000000080010bb9        0x7 
+ .srodata       0x0000000080010bc0        0x8 out/./lib/lru.o
+ .rodata        0x0000000080010bc8       0x8a out/./lib/printk.o
                 0x0000000080011000                . = ALIGN (0x1000)
- *fill*         0x0000000080010c42      0x3be 
+ *fill*         0x0000000080010c52      0x3ae 
                 0x0000000080011000                _rodata_end = .
 
 .rela.dyn       0x0000000080011000        0x0
@@ -504,44 +504,44 @@ LOAD out/./arch/riscv64//boot.o
 LOAD out/./arch/riscv64//trap.o
 OUTPUT(out/vboot.elf elf64-littleriscv)
 
-.debug_info     0x0000000000000000    0x160bf
+.debug_info     0x0000000000000000    0x160cf
  .debug_info    0x0000000000000000      0x41e out/.//elf.o
- .debug_info    0x000000000000041e      0xf3b out/.//init.o
- .debug_info    0x0000000000001359      0x1ae out/.//malloc.o
- .debug_info    0x0000000000001507      0x66d out/.//vm.o
- .debug_info    0x0000000000001b74      0x51c out/./fs/block_adapter.o
- .debug_info    0x0000000000002090      0x214 out/./fs/block_device.o
- .debug_info    0x00000000000022a4     0x1594 out/./fs/ext2//ext2_block.o
- .debug_info    0x0000000000003838     0x1689 out/./fs/ext2//ext2_cache.o
- .debug_info    0x0000000000004ec1     0x135b out/./fs/ext2//ext2_dir.o
- .debug_info    0x000000000000621c      0xb2e out/./fs/ext2//ext2_file.o
- .debug_info    0x0000000000006d4a     0x15ae out/./fs/ext2//ext2_inode.o
- .debug_info    0x00000000000082f8     0x1551 out/./fs/ext2//ext2_namei.o
- .debug_info    0x0000000000009849      0xdb6 out/./fs/ext2//ext2_page.o
- .debug_info    0x000000000000a5ff     0x1516 out/./fs/ext2//ext2_super.o
- .debug_info    0x000000000000bb15     0x10f2 out/./fs/vfs//dcache.o
- .debug_info    0x000000000000cc07      0x962 out/./fs/vfs//fs_init.o
- .debug_info    0x000000000000d569      0xb81 out/./fs/vfs//fs_type.o
- .debug_info    0x000000000000e0ea     0x1205 out/./fs/vfs//icache.o
- .debug_info    0x000000000000f2ef      0xbea out/./fs/vfs//mount.o
- .debug_info    0x000000000000fed9      0x2c2 out/./fs/vfs//path.o
- .debug_info    0x000000000001019b     0x1065 out/./fs/vfs//pcache.o
- .debug_info    0x0000000000011200      0xb9d out/./fs/vfs//super.o
- .debug_info    0x0000000000011d9d      0xd9d out/./fs/vfs//vfs.o
- .debug_info    0x0000000000012b3a      0x2cf out/./arch/riscv64//symbols.o
- .debug_info    0x0000000000012e09      0x544 out/./arch/riscv64//trap_handler.o
- .debug_info    0x000000000001334d      0x3b3 out/./drivers/time.o
- .debug_info    0x0000000000013700      0x19b out/./drivers/uart.o
- .debug_info    0x000000000001389b      0x9e8 out/./drivers/virt_disk.o
- .debug_info    0x0000000000014283      0x2f0 out/./drivers/virtio.o
- .debug_info    0x0000000000014573      0x41d out/./lib/bitmap.o
- .debug_info    0x0000000000014990      0x5df out/./lib/hashtable.o
- .debug_info    0x0000000000014f6f      0x98e out/./lib/lru.o
- .debug_info    0x00000000000158fd      0x377 out/./lib/printk.o
- .debug_info    0x0000000000015c74      0x363 out/./lib/string.o
- .debug_info    0x0000000000015fd7       0x97 out/./lib/utils.o
- .debug_info    0x000000000001606e       0x28 out/./arch/riscv64//boot.o
- .debug_info    0x0000000000016096       0x29 out/./arch/riscv64//trap.o
+ .debug_info    0x000000000000041e      0xf5a out/.//init.o
+ .debug_info    0x0000000000001378      0x1ae out/.//malloc.o
+ .debug_info    0x0000000000001526      0x66d out/.//vm.o
+ .debug_info    0x0000000000001b93      0x51c out/./fs/block_adapter.o
+ .debug_info    0x00000000000020af      0x214 out/./fs/block_device.o
+ .debug_info    0x00000000000022c3     0x1594 out/./fs/ext2//ext2_block.o
+ .debug_info    0x0000000000003857     0x1689 out/./fs/ext2//ext2_cache.o
+ .debug_info    0x0000000000004ee0     0x135b out/./fs/ext2//ext2_dir.o
+ .debug_info    0x000000000000623b      0xb2e out/./fs/ext2//ext2_file.o
+ .debug_info    0x0000000000006d69     0x15ae out/./fs/ext2//ext2_inode.o
+ .debug_info    0x0000000000008317     0x1551 out/./fs/ext2//ext2_namei.o
+ .debug_info    0x0000000000009868      0xdb6 out/./fs/ext2//ext2_page.o
+ .debug_info    0x000000000000a61e     0x1516 out/./fs/ext2//ext2_super.o
+ .debug_info    0x000000000000bb34     0x10f2 out/./fs/vfs//dcache.o
+ .debug_info    0x000000000000cc26      0x962 out/./fs/vfs//fs_init.o
+ .debug_info    0x000000000000d588      0xb81 out/./fs/vfs//fs_type.o
+ .debug_info    0x000000000000e109     0x1205 out/./fs/vfs//icache.o
+ .debug_info    0x000000000000f30e      0xbea out/./fs/vfs//mount.o
+ .debug_info    0x000000000000fef8      0x2c2 out/./fs/vfs//path.o
+ .debug_info    0x00000000000101ba     0x1056 out/./fs/vfs//pcache.o
+ .debug_info    0x0000000000011210      0xb9d out/./fs/vfs//super.o
+ .debug_info    0x0000000000011dad      0xd9d out/./fs/vfs//vfs.o
+ .debug_info    0x0000000000012b4a      0x2cf out/./arch/riscv64//symbols.o
+ .debug_info    0x0000000000012e19      0x544 out/./arch/riscv64//trap_handler.o
+ .debug_info    0x000000000001335d      0x3b3 out/./drivers/time.o
+ .debug_info    0x0000000000013710      0x19b out/./drivers/uart.o
+ .debug_info    0x00000000000138ab      0x9e8 out/./drivers/virt_disk.o
+ .debug_info    0x0000000000014293      0x2f0 out/./drivers/virtio.o
+ .debug_info    0x0000000000014583      0x41d out/./lib/bitmap.o
+ .debug_info    0x00000000000149a0      0x5df out/./lib/hashtable.o
+ .debug_info    0x0000000000014f7f      0x98e out/./lib/lru.o
+ .debug_info    0x000000000001590d      0x377 out/./lib/printk.o
+ .debug_info    0x0000000000015c84      0x363 out/./lib/string.o
+ .debug_info    0x0000000000015fe7       0x97 out/./lib/utils.o
+ .debug_info    0x000000000001607e       0x28 out/./arch/riscv64//boot.o
+ .debug_info    0x00000000000160a6       0x29 out/./arch/riscv64//trap.o
 
 .debug_abbrev   0x0000000000000000     0x40ec
  .debug_abbrev  0x0000000000000000      0x179 out/.//elf.o
@@ -658,162 +658,162 @@ OUTPUT(out/vboot.elf elf64-littleriscv)
  .debug_aranges
                 0x00000000000006c0       0x30 out/./arch/riscv64//trap.o
 
-.debug_line     0x0000000000000000     0xabb9
+.debug_line     0x0000000000000000     0xac0d
  .debug_line    0x0000000000000000      0x46c out/.//elf.o
- .debug_line    0x000000000000046c      0x4a5 out/.//init.o
- .debug_line    0x0000000000000911      0x181 out/.//malloc.o
- .debug_line    0x0000000000000a92      0x701 out/.//vm.o
- .debug_line    0x0000000000001193      0x42c out/./fs/block_adapter.o
- .debug_line    0x00000000000015bf      0x125 out/./fs/block_device.o
- .debug_line    0x00000000000016e4      0x621 out/./fs/ext2//ext2_block.o
- .debug_line    0x0000000000001d05      0xdb0 out/./fs/ext2//ext2_cache.o
- .debug_line    0x0000000000002ab5      0x948 out/./fs/ext2//ext2_dir.o
- .debug_line    0x00000000000033fd      0x2ca out/./fs/ext2//ext2_file.o
- .debug_line    0x00000000000036c7      0x81b out/./fs/ext2//ext2_inode.o
- .debug_line    0x0000000000003ee2      0x306 out/./fs/ext2//ext2_namei.o
- .debug_line    0x00000000000041e8      0x2b4 out/./fs/ext2//ext2_page.o
- .debug_line    0x000000000000449c      0x82e out/./fs/ext2//ext2_super.o
- .debug_line    0x0000000000004cca      0x7d6 out/./fs/vfs//dcache.o
- .debug_line    0x00000000000054a0       0xda out/./fs/vfs//fs_init.o
- .debug_line    0x000000000000557a      0x328 out/./fs/vfs//fs_type.o
- .debug_line    0x00000000000058a2      0x8ce out/./fs/vfs//icache.o
- .debug_line    0x0000000000006170      0x32e out/./fs/vfs//mount.o
- .debug_line    0x000000000000649e      0x352 out/./fs/vfs//path.o
- .debug_line    0x00000000000067f0      0x643 out/./fs/vfs//pcache.o
- .debug_line    0x0000000000006e33      0x28f out/./fs/vfs//super.o
- .debug_line    0x00000000000070c2      0x4c9 out/./fs/vfs//vfs.o
- .debug_line    0x000000000000758b      0x1c7 out/./arch/riscv64//symbols.o
- .debug_line    0x0000000000007752      0x445 out/./arch/riscv64//trap_handler.o
- .debug_line    0x0000000000007b97      0x450 out/./drivers/time.o
- .debug_line    0x0000000000007fe7      0x1c5 out/./drivers/uart.o
- .debug_line    0x00000000000081ac      0x813 out/./drivers/virt_disk.o
- .debug_line    0x00000000000089bf      0x1d4 out/./drivers/virtio.o
- .debug_line    0x0000000000008b93      0x440 out/./lib/bitmap.o
- .debug_line    0x0000000000008fd3      0x5d2 out/./lib/hashtable.o
- .debug_line    0x00000000000095a5      0x936 out/./lib/lru.o
- .debug_line    0x0000000000009edb      0x4da out/./lib/printk.o
- .debug_line    0x000000000000a3b5      0x3fa out/./lib/string.o
- .debug_line    0x000000000000a7af      0x12a out/./lib/utils.o
- .debug_line    0x000000000000a8d9       0x94 out/./arch/riscv64//boot.o
- .debug_line    0x000000000000a96d      0x24c out/./arch/riscv64//trap.o
+ .debug_line    0x000000000000046c      0x4e3 out/.//init.o
+ .debug_line    0x000000000000094f      0x181 out/.//malloc.o
+ .debug_line    0x0000000000000ad0      0x701 out/.//vm.o
+ .debug_line    0x00000000000011d1      0x42c out/./fs/block_adapter.o
+ .debug_line    0x00000000000015fd      0x125 out/./fs/block_device.o
+ .debug_line    0x0000000000001722      0x621 out/./fs/ext2//ext2_block.o
+ .debug_line    0x0000000000001d43      0xdb0 out/./fs/ext2//ext2_cache.o
+ .debug_line    0x0000000000002af3      0x948 out/./fs/ext2//ext2_dir.o
+ .debug_line    0x000000000000343b      0x2e0 out/./fs/ext2//ext2_file.o
+ .debug_line    0x000000000000371b      0x81b out/./fs/ext2//ext2_inode.o
+ .debug_line    0x0000000000003f36      0x306 out/./fs/ext2//ext2_namei.o
+ .debug_line    0x000000000000423c      0x2b4 out/./fs/ext2//ext2_page.o
+ .debug_line    0x00000000000044f0      0x82e out/./fs/ext2//ext2_super.o
+ .debug_line    0x0000000000004d1e      0x7d6 out/./fs/vfs//dcache.o
+ .debug_line    0x00000000000054f4       0xda out/./fs/vfs//fs_init.o
+ .debug_line    0x00000000000055ce      0x328 out/./fs/vfs//fs_type.o
+ .debug_line    0x00000000000058f6      0x8ce out/./fs/vfs//icache.o
+ .debug_line    0x00000000000061c4      0x32e out/./fs/vfs//mount.o
+ .debug_line    0x00000000000064f2      0x352 out/./fs/vfs//path.o
+ .debug_line    0x0000000000006844      0x643 out/./fs/vfs//pcache.o
+ .debug_line    0x0000000000006e87      0x28f out/./fs/vfs//super.o
+ .debug_line    0x0000000000007116      0x4c9 out/./fs/vfs//vfs.o
+ .debug_line    0x00000000000075df      0x1c7 out/./arch/riscv64//symbols.o
+ .debug_line    0x00000000000077a6      0x445 out/./arch/riscv64//trap_handler.o
+ .debug_line    0x0000000000007beb      0x450 out/./drivers/time.o
+ .debug_line    0x000000000000803b      0x1c5 out/./drivers/uart.o
+ .debug_line    0x0000000000008200      0x813 out/./drivers/virt_disk.o
+ .debug_line    0x0000000000008a13      0x1d4 out/./drivers/virtio.o
+ .debug_line    0x0000000000008be7      0x440 out/./lib/bitmap.o
+ .debug_line    0x0000000000009027      0x5d2 out/./lib/hashtable.o
+ .debug_line    0x00000000000095f9      0x936 out/./lib/lru.o
+ .debug_line    0x0000000000009f2f      0x4da out/./lib/printk.o
+ .debug_line    0x000000000000a409      0x3fa out/./lib/string.o
+ .debug_line    0x000000000000a803      0x12a out/./lib/utils.o
+ .debug_line    0x000000000000a92d       0x94 out/./arch/riscv64//boot.o
+ .debug_line    0x000000000000a9c1      0x24c out/./arch/riscv64//trap.o
 
-.debug_str      0x0000000000000000     0x2519
- .debug_str     0x0000000000000000     0x2519 out/.//elf.o
+.debug_str      0x0000000000000000     0x2525
+ .debug_str     0x0000000000000000     0x2525 out/.//elf.o
                                         0x263 (size before relaxing)
- .debug_str     0x0000000000002519      0x765 out/.//init.o
- .debug_str     0x0000000000002519      0x14e out/.//malloc.o
- .debug_str     0x0000000000002519      0x301 out/.//vm.o
- .debug_str     0x0000000000002519      0x298 out/./fs/block_adapter.o
- .debug_str     0x0000000000002519      0x163 out/./fs/block_device.o
- .debug_str     0x0000000000002519      0xccd out/./fs/ext2//ext2_block.o
- .debug_str     0x0000000000002519      0xc92 out/./fs/ext2//ext2_cache.o
- .debug_str     0x0000000000002519      0x9a5 out/./fs/ext2//ext2_dir.o
- .debug_str     0x0000000000002519      0x600 out/./fs/ext2//ext2_file.o
- .debug_str     0x0000000000002519      0xca0 out/./fs/ext2//ext2_inode.o
- .debug_str     0x0000000000002519      0xd2b out/./fs/ext2//ext2_namei.o
- .debug_str     0x0000000000002519      0x76e out/./fs/ext2//ext2_page.o
- .debug_str     0x0000000000002519      0xce1 out/./fs/ext2//ext2_super.o
- .debug_str     0x0000000000002519      0x7af out/./fs/vfs//dcache.o
- .debug_str     0x0000000000002519      0x59e out/./fs/vfs//fs_init.o
- .debug_str     0x0000000000002519      0x5e2 out/./fs/vfs//fs_type.o
- .debug_str     0x0000000000002519      0x8a7 out/./fs/vfs//icache.o
- .debug_str     0x0000000000002519      0x651 out/./fs/vfs//mount.o
- .debug_str     0x0000000000002519      0x183 out/./fs/vfs//path.o
- .debug_str     0x0000000000002519      0x7a7 out/./fs/vfs//pcache.o
- .debug_str     0x0000000000002519      0x5f6 out/./fs/vfs//super.o
- .debug_str     0x0000000000002519      0x659 out/./fs/vfs//vfs.o
- .debug_str     0x0000000000002519      0x29c out/./arch/riscv64//symbols.o
- .debug_str     0x0000000000002519      0x29e out/./arch/riscv64//trap_handler.o
- .debug_str     0x0000000000002519      0x226 out/./drivers/time.o
- .debug_str     0x0000000000002519      0x12b out/./drivers/uart.o
- .debug_str     0x0000000000002519      0x580 out/./drivers/virt_disk.o
- .debug_str     0x0000000000002519      0x2b2 out/./drivers/virtio.o
- .debug_str     0x0000000000002519      0x1d4 out/./lib/bitmap.o
- .debug_str     0x0000000000002519      0x268 out/./lib/hashtable.o
- .debug_str     0x0000000000002519      0x33e out/./lib/lru.o
- .debug_str     0x0000000000002519      0x189 out/./lib/printk.o
- .debug_str     0x0000000000002519      0x126 out/./lib/string.o
- .debug_str     0x0000000000002519       0x9f out/./lib/utils.o
- .debug_str     0x0000000000002519       0x31 out/./arch/riscv64//boot.o
- .debug_str     0x0000000000002519       0x31 out/./arch/riscv64//trap.o
+ .debug_str     0x0000000000002525      0x76e out/.//init.o
+ .debug_str     0x0000000000002525      0x14e out/.//malloc.o
+ .debug_str     0x0000000000002525      0x301 out/.//vm.o
+ .debug_str     0x0000000000002525      0x298 out/./fs/block_adapter.o
+ .debug_str     0x0000000000002525      0x163 out/./fs/block_device.o
+ .debug_str     0x0000000000002525      0xccd out/./fs/ext2//ext2_block.o
+ .debug_str     0x0000000000002525      0xc92 out/./fs/ext2//ext2_cache.o
+ .debug_str     0x0000000000002525      0x9a5 out/./fs/ext2//ext2_dir.o
+ .debug_str     0x0000000000002525      0x600 out/./fs/ext2//ext2_file.o
+ .debug_str     0x0000000000002525      0xca0 out/./fs/ext2//ext2_inode.o
+ .debug_str     0x0000000000002525      0xd2b out/./fs/ext2//ext2_namei.o
+ .debug_str     0x0000000000002525      0x76e out/./fs/ext2//ext2_page.o
+ .debug_str     0x0000000000002525      0xce1 out/./fs/ext2//ext2_super.o
+ .debug_str     0x0000000000002525      0x7af out/./fs/vfs//dcache.o
+ .debug_str     0x0000000000002525      0x59e out/./fs/vfs//fs_init.o
+ .debug_str     0x0000000000002525      0x5e2 out/./fs/vfs//fs_type.o
+ .debug_str     0x0000000000002525      0x8a7 out/./fs/vfs//icache.o
+ .debug_str     0x0000000000002525      0x651 out/./fs/vfs//mount.o
+ .debug_str     0x0000000000002525      0x183 out/./fs/vfs//path.o
+ .debug_str     0x0000000000002525      0x7a1 out/./fs/vfs//pcache.o
+ .debug_str     0x0000000000002525      0x5f6 out/./fs/vfs//super.o
+ .debug_str     0x0000000000002525      0x659 out/./fs/vfs//vfs.o
+ .debug_str     0x0000000000002525      0x29c out/./arch/riscv64//symbols.o
+ .debug_str     0x0000000000002525      0x29e out/./arch/riscv64//trap_handler.o
+ .debug_str     0x0000000000002525      0x226 out/./drivers/time.o
+ .debug_str     0x0000000000002525      0x12b out/./drivers/uart.o
+ .debug_str     0x0000000000002525      0x580 out/./drivers/virt_disk.o
+ .debug_str     0x0000000000002525      0x2b2 out/./drivers/virtio.o
+ .debug_str     0x0000000000002525      0x1d4 out/./lib/bitmap.o
+ .debug_str     0x0000000000002525      0x268 out/./lib/hashtable.o
+ .debug_str     0x0000000000002525      0x33e out/./lib/lru.o
+ .debug_str     0x0000000000002525      0x189 out/./lib/printk.o
+ .debug_str     0x0000000000002525      0x126 out/./lib/string.o
+ .debug_str     0x0000000000002525       0x9f out/./lib/utils.o
+ .debug_str     0x0000000000002525       0x34 out/./arch/riscv64//boot.o
+ .debug_str     0x0000000000002525       0x34 out/./arch/riscv64//trap.o
 
 .debug_line_str
-                0x0000000000000000      0x49c
+                0x0000000000000000      0x48c
  .debug_line_str
-                0x0000000000000000      0x49c out/.//elf.o
-                                         0x69 (size before relaxing)
+                0x0000000000000000      0x48c out/.//elf.o
+                                         0x6f (size before relaxing)
  .debug_line_str
-                0x000000000000049c      0x104 out/.//init.o
+                0x000000000000048c      0x104 out/.//init.o
  .debug_line_str
-                0x000000000000049c       0x6b out/.//malloc.o
+                0x000000000000048c       0x71 out/.//malloc.o
  .debug_line_str
-                0x000000000000049c       0x8b out/.//vm.o
+                0x000000000000048c       0x91 out/.//vm.o
  .debug_line_str
-                0x000000000000049c       0x87 out/./fs/block_adapter.o
+                0x000000000000048c       0x8d out/./fs/block_adapter.o
  .debug_line_str
-                0x000000000000049c       0x79 out/./fs/block_device.o
+                0x000000000000048c       0x7f out/./fs/block_device.o
  .debug_line_str
-                0x000000000000049c      0x11f out/./fs/ext2//ext2_block.o
+                0x000000000000048c      0x125 out/./fs/ext2//ext2_block.o
  .debug_line_str
-                0x000000000000049c      0x112 out/./fs/ext2//ext2_cache.o
+                0x000000000000048c      0x118 out/./fs/ext2//ext2_cache.o
  .debug_line_str
-                0x000000000000049c      0x11b out/./fs/ext2//ext2_dir.o
+                0x000000000000048c      0x121 out/./fs/ext2//ext2_dir.o
  .debug_line_str
-                0x000000000000049c       0xf0 out/./fs/ext2//ext2_file.o
+                0x000000000000048c       0xf6 out/./fs/ext2//ext2_file.o
  .debug_line_str
-                0x000000000000049c      0x14a out/./fs/ext2//ext2_inode.o
+                0x000000000000048c      0x150 out/./fs/ext2//ext2_inode.o
  .debug_line_str
-                0x000000000000049c      0x132 out/./fs/ext2//ext2_namei.o
+                0x000000000000048c      0x138 out/./fs/ext2//ext2_namei.o
  .debug_line_str
-                0x000000000000049c      0x100 out/./fs/ext2//ext2_page.o
+                0x000000000000048c      0x106 out/./fs/ext2//ext2_page.o
  .debug_line_str
-                0x000000000000049c      0x128 out/./fs/ext2//ext2_super.o
+                0x000000000000048c      0x12e out/./fs/ext2//ext2_super.o
  .debug_line_str
-                0x000000000000049c       0xea out/./fs/vfs//dcache.o
+                0x000000000000048c       0xf0 out/./fs/vfs//dcache.o
  .debug_line_str
-                0x000000000000049c      0x100 out/./fs/vfs//fs_init.o
+                0x000000000000048c      0x106 out/./fs/vfs//fs_init.o
  .debug_line_str
-                0x000000000000049c       0xd6 out/./fs/vfs//fs_type.o
+                0x000000000000048c       0xdc out/./fs/vfs//fs_type.o
  .debug_line_str
-                0x000000000000049c       0xf3 out/./fs/vfs//icache.o
+                0x000000000000048c       0xf9 out/./fs/vfs//icache.o
  .debug_line_str
-                0x000000000000049c       0xe5 out/./fs/vfs//mount.o
+                0x000000000000048c       0xeb out/./fs/vfs//mount.o
  .debug_line_str
-                0x000000000000049c       0x6d out/./fs/vfs//path.o
+                0x000000000000048c       0x73 out/./fs/vfs//path.o
  .debug_line_str
-                0x000000000000049c       0xea out/./fs/vfs//pcache.o
+                0x000000000000048c       0xf0 out/./fs/vfs//pcache.o
  .debug_line_str
-                0x000000000000049c       0xdb out/./fs/vfs//super.o
+                0x000000000000048c       0xe1 out/./fs/vfs//super.o
  .debug_line_str
-                0x000000000000049c       0xed out/./fs/vfs//vfs.o
+                0x000000000000048c       0xf3 out/./fs/vfs//vfs.o
  .debug_line_str
-                0x000000000000049c       0x68 out/./arch/riscv64//symbols.o
+                0x000000000000048c       0x6e out/./arch/riscv64//symbols.o
  .debug_line_str
-                0x000000000000049c       0xab out/./arch/riscv64//trap_handler.o
+                0x000000000000048c       0xb1 out/./arch/riscv64//trap_handler.o
  .debug_line_str
-                0x000000000000049c       0x5a out/./drivers/time.o
+                0x000000000000048c       0x60 out/./drivers/time.o
  .debug_line_str
-                0x000000000000049c       0x53 out/./drivers/uart.o
+                0x000000000000048c       0x59 out/./drivers/uart.o
  .debug_line_str
-                0x000000000000049c       0xa8 out/./drivers/virt_disk.o
+                0x000000000000048c       0xae out/./drivers/virt_disk.o
  .debug_line_str
-                0x000000000000049c       0x62 out/./drivers/virtio.o
+                0x000000000000048c       0x68 out/./drivers/virtio.o
  .debug_line_str
-                0x000000000000049c       0x68 out/./lib/bitmap.o
+                0x000000000000048c       0x6e out/./lib/bitmap.o
  .debug_line_str
-                0x000000000000049c       0x80 out/./lib/hashtable.o
+                0x000000000000048c       0x86 out/./lib/hashtable.o
  .debug_line_str
-                0x000000000000049c       0x87 out/./lib/lru.o
+                0x000000000000048c       0x8d out/./lib/lru.o
  .debug_line_str
-                0x000000000000049c       0x8d out/./lib/printk.o
+                0x000000000000048c       0x93 out/./lib/printk.o
  .debug_line_str
-                0x000000000000049c       0x56 out/./lib/string.o
+                0x000000000000048c       0x5c out/./lib/string.o
  .debug_line_str
-                0x000000000000049c       0x40 out/./lib/utils.o
+                0x000000000000048c       0x46 out/./lib/utils.o
  .debug_line_str
-                0x000000000000049c       0x25 out/./arch/riscv64//boot.o
+                0x000000000000048c       0x28 out/./arch/riscv64//boot.o
  .debug_line_str
-                0x000000000000049c       0x25 out/./arch/riscv64//trap.o
+                0x000000000000048c       0x28 out/./arch/riscv64//trap.o
 
 .comment        0x0000000000000000       0x22
  .comment       0x0000000000000000       0x22 out/.//elf.o

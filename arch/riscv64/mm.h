@@ -3,7 +3,7 @@
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-09-20 15:39:46
- * @LastEditTime: 2025-09-21 16:56:41
+ * @LastEditTime: 2025-11-17 21:02:20
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
@@ -38,7 +38,11 @@
 #define MMIO_BASE 0xffffffdf00000000
 #define MAKE_MMIO_VA(pa) (MMIO_BASE + ((u64)(pa)))
 
-
+#define KERNEL_PA_BASE 0x80000000
+#define KERNEL_VA_BASE 0xffffffffc0000000
+#define KERNEL_VA_START 0xffffffffc0200000
+#define KERNEL_VA(pa) (KERNEL_VA_BASE + ((uintptr_t)(pa)) - KERNEL_PA_BASE)
+#define KERNEL_PA(va) ((uintptr_t)(va) - KERNEL_VA_BASE + KERNEL_PA_BASE)
 
 typedef u64 pte_t;
 typedef pte_t pgtbl_t;

@@ -1,3 +1,12 @@
+/**
+ * @FilePath: /vboot/fs/ext2/ext2_file.c
+ * @Description:  
+ * @Author: scuec_weiqiang scuec_weiqiang@qq.com
+ * @Date: 2025-10-01 15:14:31
+ * @LastEditTime: 2025-11-17 19:56:48
+ * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
+ * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
+*/
 #include "vfs_types.h"
 #include "pcache.h"
 #include "check.h"
@@ -26,7 +35,14 @@ ssize_t ext2_file_read(struct inode *inode, void *buf, size_t size, loff_t *offs
         if(i == start_page)
         {
             page_offset = (*offset) % VFS_PAGE_SIZE;
-            bytes_to_copy = VFS_PAGE_SIZE - page_offset;
+            if(size < VFS_PAGE_SIZE - page_offset)
+            {
+                bytes_to_copy = size;
+            }
+            else
+            {
+                bytes_to_copy = VFS_PAGE_SIZE - page_offset;
+            }
         }
         else if(i == end_page)
         {
