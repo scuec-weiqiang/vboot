@@ -46,7 +46,7 @@ reg_t m_timer_interrupt_handler(reg_t epc)
 reg_t s_extern_interrupt_handler(reg_t epc)
 {
     enum hart_id hart_id = tp_r();
-    u32 irqn = __plic_claim(hart_id);
+    uint32_t irqn = __plic_claim(hart_id);
     switch (irqn)
     {
         case 10:
@@ -68,7 +68,7 @@ reg_t s_extern_interrupt_handler(reg_t epc)
 reg_t m_extern_interrupt_handler(reg_t epc)
 {
     enum hart_id hart_id = tp_r();
-    u32 irqn = __plic_claim(hart_id);
+    uint32_t irqn = __plic_claim(hart_id);
     switch (irqn)
     {
         case 10:
@@ -105,8 +105,8 @@ trap_func_t interrupt_handlers[11] = {
 reg_t trap_handler(reg_t epc,reg_t cause,reg_t ctx)
 {
     reg_t return_epc = epc;
-    u64 cause_code = cause & MCAUSE_MASK_CAUSECODE;
-    u64 is_interrupt = (cause & MCAUSE_MASK_INTERRUPT);;
+    uint64_t cause_code = cause & MCAUSE_MASK_CAUSECODE;
+    uint64_t is_interrupt = (cause & MCAUSE_MASK_INTERRUPT);;
     if(is_interrupt) // 中断
     {   
         if(interrupt_handlers[cause_code] == NULL && cause_code < 12) //前12个是标准中断

@@ -1,9 +1,9 @@
 /**
- * @FilePath: /vboot/lib/hashtable.h
+ * @FilePath: /ZZZ-OS/lib/os/hashtable.h
  * @Description:
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-08-21 17:00:57
- * @LastEditTime: 2025-09-17 23:32:41
+ * @LastEditTime: 2025-10-06 16:36:15
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
  */
@@ -21,10 +21,10 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
-#include "hlist.h"
-#include "types.h"
+#include <hlist.h>
+#include <types.h>
 
-typedef u64 hval_t;
+typedef uint64_t hval_t;
 
 typedef hval_t (*hash_func_t)(const struct hlist_node *);
 typedef int (*hash_compare_t)(const struct hlist_node *, const struct hlist_node *);

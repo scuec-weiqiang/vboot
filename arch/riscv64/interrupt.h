@@ -92,12 +92,12 @@ static inline void m_soft_interrupt_disable()
 
 /***************************************************************
  * @description: 外部中断设置
- * @param {u32} hart [in]:  指定某一hartid
- * @param {u32} iqrn [in]:  外部中断源的中断号
- * @param {u32} priority [in]:  外部中断的优先级
+ * @param {uint32_t} hart [in]:  指定某一hartid
+ * @param {uint32_t} iqrn [in]:  外部中断源的中断号
+ * @param {uint32_t} priority [in]:  外部中断的优先级
  * @return {*}
 ***************************************************************/
-static inline void extern_interrupt_setting(enum hart_id hart_id,u32 iqrn,u32 priority)
+static inline void extern_interrupt_setting(enum hart_id hart_id,uint32_t iqrn,uint32_t priority)
 { 
     __plic_priority_set(iqrn,priority);
     __plic_threshold_set(hart_id,0);

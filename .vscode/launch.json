@@ -26,7 +26,7 @@
                 },
                 {
                     "description": "Break at entry",
-                    "text": "break *0xffffffffc0200000"
+                    "text": "break *0x80400000"
                 },
                 {
                     "description": "Load boot symbols",
@@ -34,16 +34,16 @@
                 },
                 {
                     "description": "Load kernel symbols",
-                    "text": "add-symbol-file ${workspaceFolder}/../ZZZ-OS/build/kernel.img 0xffffffffc0200000"
+                    "text": "add-symbol-file ${workspaceFolder}/../ZZZ-OS/build/kernel.img 0x80400000"
                 },
-                {
-                    "description": "Load user1 symbols",
-                    "text": "add-symbol-file ${workspaceFolder}/../proc1/out/proc1.elf 0x10000"
-                },
-                {
-                    "description": "Load user2 symbols",
-                    "text": "add-symbol-file ${workspaceFolder}/../proc2/out/proc2.elf 0x10000"
-                },
+                // {
+                //     "description": "Load user1 symbols",
+                //     "text": "add-symbol-file ${workspaceFolder}/../proc1/out/proc1.elf 0x10000"
+                // },
+                // {
+                //     "description": "Load user2 symbols",
+                //     "text": "add-symbol-file ${workspaceFolder}/../proc2/out/proc2.elf 0x10000"
+                // },
             ],
             "preLaunchTask": "wsl-qemu-start"
         }

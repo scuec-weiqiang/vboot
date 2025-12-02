@@ -1,5 +1,5 @@
 /**
- * @FilePath: /ZZZ/kernel/fs/ext2/ext2_inode.h
+ * @FilePath: /ZZZ/kernel/fs/ext2/fs/ext2/ext2_inode.h
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-09-02 18:27:09
@@ -10,10 +10,10 @@
 #ifndef EXT2_INODE_H
 #define EXT2_INODE_H
 
-#include "types.h"
-#include "vfs_types.h"
+#include <types.h>
+#include <fs/vfs_types.h>
 
-extern u64 ext2_ino_group(struct superblock *vfs_sb,u64 ino);
+extern uint64_t ext2_ino_group(struct superblock *vfs_sb,uint64_t ino);
 extern struct super_ops ext2_s_ops;
 
 #endif

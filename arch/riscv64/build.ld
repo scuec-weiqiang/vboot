@@ -3,7 +3,7 @@ ENTRY(_start)
 
 STACK_SIZE = 4096;          /* 单个核心栈大小（字节） */
 RAM_BASE = 0x80000000;      /* RAM起始地址 */
-RAM_SIZE = 2M;       /* RAM大小（2MB） */
+RAM_SIZE = 4M;       /* RAM大小（2MB） */
 
 MEMORY 
 {

@@ -1,5 +1,5 @@
 /**
- * @FilePath: /ZZZ/kernel/fs/ext2/ext2_erros.h
+ * @FilePath: /ZZZ/kernel/fs/ext2/fs/ext2/ext2_erros.h
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-08-13 21:27:21

@@ -1,5 +1,5 @@
 /**
- * @FilePath: /ZZZ/kernel/fs/ext2/ext2_super.h
+ * @FilePath: /ZZZ/kernel/fs/fs/ext2/ext2_super.h
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-08-28 20:20:03
@@ -10,8 +10,8 @@
 #ifndef EXT2_SUPER_H
 #define EXT2_SUPER_H
 
-#include "types.h"
-#include "vfs_types.h"
+#include <types.h>
+#include <fs/vfs_types.h>
 
 extern struct fs_type ext2_fs_type;
 extern int ext2_sync_super(struct superblock *sb);

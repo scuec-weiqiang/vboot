@@ -1,15 +1,15 @@
 /**
- * @FilePath: /vboot/lib/string.c
+ * @FilePath: /ZZZ-OS/lib/string.c
  * @Description:
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-05-09 02:40:09
- * @LastEditTime: 2025-09-17 23:19:01
+ * @LastEditTime: 2025-10-10 00:17:08
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
  */
 
-#include "string.h"
-#include "malloc.h"
+#include <string.h>
+#include <malloc.h>
 
 /**
  * @brief 将内存区域填充为指定值
@@ -46,18 +46,16 @@ void *memcpy(void *dest, const void *src, size_t size)
     return dest;
 }
 
-/**
- * @brief 比较两个字符串
- *
- * 比较两个字符串s1和s2，返回其字典序的差值。
- *
- * @param s1 第一个字符串指针
- * @param s2 第二个字符串指针
- *
- * @return 如果s1小于s2，则返回负值；
- *         如果s1等于s2，则返回0；
- *         如果s1大于s2，则返回正值。
- */
+void *memcpy32(void *dest, const void *src, size_t size)
+{
+    uint32_t *d = dest;
+    const uint32_t *s = src;
+    size_t words = size / 4;
+    for (size_t i = 0; i < words; i++)
+        d[i] = s[i];
+    return dest;
+}
+
 int strcpy(char *dest, const char *src)
 {
     size_t i;

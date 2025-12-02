@@ -1,9 +1,9 @@
 /**
- * @FilePath: /vboot/lib/types.h
+ * @FilePath: /ZZZ-OS/include/os/types.h
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-09-17 19:42:44
- * @LastEditTime: 2025-09-17 23:49:10
+ * @LastEditTime: 2025-11-28 16:13:22
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
 */
@@ -14,25 +14,31 @@
     #define GNUC
 
     #ifdef RISCV64
-        typedef signed char         s8;    
-        typedef signed short        s16;       
-        typedef signed int          s32;
-        typedef signed long         s64;
+        typedef signed char         int8_t;    
+        typedef signed short        int16_t;       
+        typedef signed int          int32_t;
+        typedef signed long         int64_t;
         typedef signed long         ssize_t;
         typedef signed long         intptr_t;
 
-        typedef unsigned char       u8;    
-        typedef unsigned short      u16;       
-        typedef unsigned int        u32;
-        typedef unsigned long       u64;
+        typedef unsigned char       uint8_t;    
+        typedef unsigned short      uint16_t;       
+        typedef unsigned int        uint32_t;
+        typedef unsigned long       uint64_t;
         typedef unsigned long       size_t;
         typedef unsigned long       uintptr_t;
-        typedef u64                 reg_t;
-        #define U8_MAX     (0xff)
-        #define U16_MAX    (0xffff)
-        #define U32_MAX    (0xffffffff)
-        #define U64_MAX    (0xffffffffffffffff)
+        #define UINT_MAX            (0xffffffffffffffff)
+
     #endif 
+
+    #define UINT8_MAX     (0xff)
+    #define UINT16_MAX    (0xffff)
+    #define uint32_t_MAX    (0xffffffff)
+    #define uint64_t_MAX    (0xffffffffffffffff)
+
+    typedef uintptr_t     reg_t;
+    typedef uintptr_t     phys_addr_t;
+    typedef uintptr_t     virt_addr_t;
 
     typedef enum { false, true } bool;
 
@@ -44,5 +50,17 @@
     #define likely(x)   __builtin_expect(!!(x), 1)
     #define unlikely(x) __builtin_expect(!!(x), 0)
 #endif 
+
+#define __in
+#define __out
+#define __user
+
+typedef uint32_t dev_t;
+
+struct list_head
+{
+    struct list_head *prev;
+    struct list_head *next;
+};
 
 #endif

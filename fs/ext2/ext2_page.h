@@ -1,5 +1,5 @@
 /**
- * @FilePath: /ZZZ/kernel/fs/ext2/ext2_page.h
+ * @FilePath: /ZZZ/kernel/fs/ext2/fs/ext2/ext2_page.h
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-09-01 20:53:55
@@ -10,7 +10,7 @@
 #ifndef EXT2_PAGE_H
 #define EXT2_PAGE_H
 
-#include "vfs_types.h"
+#include <fs/vfs_types.h>
 
 extern struct aops ext2_aops ;
 

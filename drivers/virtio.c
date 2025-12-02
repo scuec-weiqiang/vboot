@@ -20,7 +20,7 @@ int virtio_blk_init()
         return -1;
     }
 
-    u32 status = 0; 
+    uint32_t status = 0; 
     // 1. Reset the device.
     virtio->status = status;
     __sync_synchronize();
@@ -39,8 +39,8 @@ int virtio_blk_init()
     // 4. Read device feature bits, and write the subset of feature bits understood by the OS and driver to the device.
     virtio->device_features_sel = 0;
     __sync_synchronize();
-    u32 device_features = virtio->device_features;
-    u32 features = device_features;
+    uint32_t device_features = virtio->device_features;
+    uint32_t features = device_features;
     // 这里设置你想要启用的功能位
     features &= ~(1 << VIRTIO_BLK_F_RO);
     features &= ~(1 << VIRTIO_BLK_F_SCSI);

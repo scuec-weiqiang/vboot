@@ -35,7 +35,7 @@ pgtbl_t* early_pgd = NULL;//kernel_page_global_directory 内核页全局目录
  *
  * @return 指向子页表的指针，如果不存在且不创建则返回NULL
  */
-pgtbl_t* get_child_pgtbl(pgtbl_t *parent_pgd, u64 vpn_level, u64 va, bool create)
+pgtbl_t* get_child_pgtbl(pgtbl_t *parent_pgd, uint64_t vpn_level, uint64_t va, bool create)
 {
     CHECK(parent_pgd != NULL, "parent_pgd is NULL", return NULL;);
     CHECK(vpn_level < 512, "vpn_level is out of bounds", return NULL;);
@@ -84,9 +84,9 @@ pte_t* page_walk(pgtbl_t *pgd, uintptr_t va, bool create)
     uintptr_t *pmd = NULL;
     uintptr_t *pte = NULL;
 
-    u64 vpn2 = (va >> 30) & 0x1ff;
-    u64 vpn1 = (va >> 21) & 0x1ff;
-    u64 vpn0 = (va >> 12) & 0x1ff;
+    uint64_t vpn2 = (va >> 30) & 0x1ff;
+    uint64_t vpn1 = (va >> 21) & 0x1ff;
+    uint64_t vpn0 = (va >> 12) & 0x1ff;
 
     pmd = get_child_pgtbl(pgd,vpn2,va,true);//获取对应pmd的物理地址
     if(pmd == NULL) return NULL;
@@ -98,15 +98,15 @@ pte_t* page_walk(pgtbl_t *pgd, uintptr_t va, bool create)
 }
 
 
-int mmap(pgtbl_t *pgd, uintptr_t vaddr, uintptr_t paddr, enum pgt_size page_size, u64 flags)
+int mmap(pgtbl_t *pgd, uintptr_t vaddr, uintptr_t paddr, enum pgt_size page_size, uint64_t flags)
 {
     CHECK(pgd != NULL, "pgd is NULL", return -1;);
     CHECK(vaddr % page_size == 0, "vaddr is not page aligned", return -1;);
     CHECK(paddr % page_size == 0, "paddr is not page aligned", return -1;);
 
-    u64 vpn2 = (vaddr >> 30) & 0x1ff;
-    u64 vpn1 = (vaddr >> 21) & 0x1ff;
-    u64 vpn0 = (vaddr >> 12) & 0x1ff;
+    uint64_t vpn2 = (vaddr >> 30) & 0x1ff;
+    uint64_t vpn1 = (vaddr >> 21) & 0x1ff;
+    uint64_t vpn0 = (vaddr >> 12) & 0x1ff;
 
     switch (page_size)
     {
@@ -143,7 +143,7 @@ int mmap(pgtbl_t *pgd, uintptr_t vaddr, uintptr_t paddr, enum pgt_size page_size
     return 0;
 }
 
-int map_range(pgtbl_t *pgd, uintptr_t vaddr, uintptr_t paddr, size_t size, u64 flags)
+int map_range(pgtbl_t *pgd, uintptr_t vaddr, uintptr_t paddr, size_t size, uint64_t flags)
 {
     CHECK(pgd != NULL, "pgd is NULL", return -1;);
     CHECK(vaddr % PAGE_SIZE_4K == 0, "vaddr is not page aligned", return -1;);

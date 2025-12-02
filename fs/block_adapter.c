@@ -7,10 +7,10 @@
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * @Copyright    : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025.
  */
-#include "block_adapter.h"
-#include "string.h"
-#include "types.h"
-#include "malloc.h"
+#include <fs/block_adapter.h>
+#include <string.h>
+#include <types.h>
+#include <malloc.h>
 
 #define ADAP_INVALID_ARG    -1
 #define ADAP_BDEV_NULL      -2
@@ -30,7 +30,7 @@ struct block_adapter
 #define MAX_BLOCK_ADAPTER_NUM 8
 struct block_adapter block_adapter_registry[MAX_BLOCK_ADAPTER_NUM];
 
-int block_adapter_register(const char* adap_name,const char* bdev_name, u32 fs_block_size)
+int block_adapter_register(const char* adap_name,const char* bdev_name, uint32_t fs_block_size)
 {
     // 检查文件系统块大小是否为磁盘扇区大小的整数倍
     if (adap_name == NULL || bdev_name == NULL || fs_block_size%512!=0)

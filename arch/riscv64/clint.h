@@ -31,9 +31,9 @@
  *
  * @return 返回当前机器时间的64位无符号整数值。
  */
-static  inline u64 __clint_mtime_get()
+static  inline uint64_t __clint_mtime_get()
 {
-    return *(u64*)CLINT_MTIME;
+    return *(uint64_t*)CLINT_MTIME;
 }
 
 /**
@@ -44,9 +44,9 @@ static  inline u64 __clint_mtime_get()
  * @param hartid  hartid，表示要设置的hart的ID
  * @param value   要设置的值
  */
-static  inline void __clint_mtimecmp_set(u32 hartid,u64 value)
+static  inline void __clint_mtimecmp_set(uint32_t hartid,uint64_t value)
 {
-    u64 *clint_mtimecmp = (u64*)CLINT_MTIMECMP_BASE;
+    uint64_t *clint_mtimecmp = (uint64_t*)CLINT_MTIMECMP_BASE;
     clint_mtimecmp[hartid] = value;
 }
 
@@ -59,7 +59,7 @@ static  inline void __clint_mtimecmp_set(u32 hartid,u64 value)
  * @param hart_id 指定发送中断的 hart 的 ID
  */
 static  inline void __clint_send_ipi(enum hart_id hart_id) {
-    volatile u32* msip = (volatile u32*)(u64)(CLINT_MSIP(hart_id));
+    volatile uint32_t* msip = (volatile uint32_t*)(uint64_t)(CLINT_MSIP(hart_id));
     *msip = 1;  // 写1触发MSIP中断
 }
 
@@ -72,7 +72,7 @@ static  inline void __clint_send_ipi(enum hart_id hart_id) {
  * @param hart_id 要清除MSIP中断的HART ID
  */
 static  inline void __clint_clear_ipi(enum hart_id hart_id) {
-    volatile u32 *msip = (volatile u32*)(u64)(CLINT_MSIP(hart_id));
+    volatile uint32_t *msip = (volatile uint32_t*)(uint64_t)(CLINT_MSIP(hart_id));
     *msip = 0;  // 写0清除MSIP中断
 }
 

@@ -31,8 +31,8 @@ void jump_to_kernel()
     char *dtb_buff = (char*)malloc((size_t)dtb->f_inode->i_size);
     read(dtb,dtb_buff,dtb->f_inode->i_size);
 
-    u8 *kernel_space = (u8*)(uintptr_t)boot_stack_end; // 程序加载到内存里需要的空间
-    u64 offset = 0;
+    uint8_t *kernel_space = (uint8_t*)(uintptr_t)boot_stack_end; // 程序加载到内存里需要的空间
+    uint64_t offset = 0;
     for (int i = 0; i < elf_info->phnum; i++)
     {
         if (elf_info->segs[i].type == PT_LOAD)

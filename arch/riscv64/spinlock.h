@@ -1,10 +1,10 @@
 #ifndef RISCV_SPINLOCK_H
 #define RISCV_SPINLOCK_H
 
-struct spinlock
+typedef struct spinlock
 {
     volatile int lock;
-};
+}spinlock_t;
 
 #define SPINLOCK_INIT {0}
 

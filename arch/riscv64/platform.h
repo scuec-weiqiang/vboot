@@ -37,6 +37,6 @@ enum hart_id{
 #define CLINT_MTIME                 (CLINT_BASE + (0xbff8))
 #define CLINT_MTIMECMP_BASE         (CLINT_BASE + (0x4000))
 #define CLINT_MSIP(hartid)          (CLINT_BASE + 4*(hartid))
-#define RELEASE_CORE(hartid)        (*(u32*)CLINT_MSIP(hartid)=1)
+#define RELEASE_CORE(hartid)        (*(uint32_t*)CLINT_MSIP(hartid)=1)
 
 #endif

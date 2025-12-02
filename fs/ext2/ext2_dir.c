@@ -1,29 +1,29 @@
 /**
- * @FilePath: /ZZZ/kernel/fs/ext2/ext2_dir.c
+ * @FilePath: /ZZZ-OS/fs/ext2/ext2_dir.c
  * * @Description: * @Author: scuec_weiqiang scuec_weiqiang@qq.com
- * @LastEditTime: 2025-09-14 00:11:09
+ * @LastEditTime: 2025-10-29 22:25:31
  * @LastEditors: scuec_weiqiang scuec_weiqiang@qq.com
  * * @Copyright : G AUTOMOBILE RESEARCH INSTITUTE CO.,LTD Copyright (c) 2025. */
 
-#include "vfs_types.h"
-#include "icache.h"
-#include "pcache.h"
-#include "dcache.h"
-#include "ext2_cache.h"
-#include "ext2_types.h"
-#include "ext2_block.h"
-#include "ext2_super.h"
-#include "ext2_inode.h"
-#include "ext2_dir.h"
+#include <fs/vfs_types.h>
+#include <fs/icache.h>
+#include <fs/pcache.h>
+#include <fs/dcache.h>
+#include <fs/ext2/ext2_cache.h>
+#include <fs/ext2/ext2_types.h>
+#include <fs/ext2/ext2_block.h>
+#include <fs/ext2/ext2_super.h>
+#include <fs/ext2/ext2_inode.h>
+#include <fs/ext2/ext2_dir.h>
 
-#include "check.h"
-#include "list.h"
-#include "malloc.h"
-#include "string.h"
+#include <check.h>
+#include <list.h>
+#include <malloc.h>
+#include <string.h>
 
 #define EXT2_ENTRY_LEN(name_len) (((sizeof(struct ext2_dir_entry_2) + (name_len) + 3) / 4) * 4)
 
-static u32 ext2_mode_to_entry_type(u32 i_mode)
+static uint32_t ext2_mode_to_entry_type(uint32_t i_mode)
 {
     switch (EXT2_GET_TYPE(i_mode))
     {
@@ -31,17 +31,29 @@ static u32 ext2_mode_to_entry_type(u32 i_mode)
         return EXT2_FT_DIR;
     case EXT2_S_IFREG:
         return EXT2_FT_REG_FILE;
+    case EXT2_S_IFCHR:
+        return EXT2_FT_CHRDEV;
+    case EXT2_S_IFBLK:
+        return EXT2_FT_BLKDEV;
+    case EXT2_S_IFIFO:
+        return EXT2_FT_FIFO;
+    case EXT2_S_IFSOCK:
+        return EXT2_FT_SOCK;
+        break;
+    case EXT2_S_IFLNK:
+        return EXT2_FT_SYMLINK;
+        break;
     default:
         return EXT2_FT_UNKNOWN;
     }
 }
 
-int ext2_init_dot_entries(struct inode *i_parent, u32 parent_inode)
+int ext2_init_dot_entries(struct inode *i_parent, uint32_t parent_inode)
 {
     CHECK(i_parent != NULL, "", return -1;);
 
     struct superblock *vfs_sb = i_parent->i_sb;
-    struct page *page = pget(i_parent, 0);
+    struct page_cache *page = pget(i_parent, 0);
 
     struct ext2_dir_entry_2 *dot = (struct ext2_dir_entry_2 *)page->data;
     dot->inode = i_parent->i_ino;
@@ -81,14 +93,14 @@ struct inode *ext2_find(struct inode *i_parent, const char *name)
 
     struct superblock *vfs_sb = i_parent->i_sb;
 
-    u64 page_num = (i_parent->i_size + VFS_PAGE_SIZE - 1) / VFS_PAGE_SIZE;
+    uint64_t page_num = (i_parent->i_size + VFS_PAGE_SIZE - 1) / VFS_PAGE_SIZE;
     struct inode *inode_ret = NULL;
     size_t name_len = (size_t)strlen(name);
 
-    for (u64 i = 0; i < page_num; i++)
+    for (uint64_t i = 0; i < page_num; i++)
     {
-        struct page *page = pget(i_parent, i);
-        u32 offset = 0;
+        struct page_cache *page = pget(i_parent, i);
+        uint32_t offset = 0;
         struct ext2_dir_entry_2 *entry = (struct ext2_dir_entry_2 *)page->data;
         // 开始对这个block中的目录项进行遍历
         while (offset < VFS_PAGE_SIZE)
@@ -102,6 +114,7 @@ struct inode *ext2_find(struct inode *i_parent, const char *name)
                     return NULL;
                 }
                 inode_ret = iget(vfs_sb, entry->inode);
+                pput(page);
                 return inode_ret;
             }
             else
@@ -109,11 +122,12 @@ struct inode *ext2_find(struct inode *i_parent, const char *name)
                 offset += entry->rec_len;
             }
         }
+        pput(page);
     }
     return NULL;
 }
 
-int ext2_init_new_inode(struct inode *inode, u32 i_mode)
+int ext2_init_new_inode(struct inode *inode, uint32_t i_mode)
 {
     CHECK(inode != NULL && inode->i_private != NULL, "", return -1;);
     CHECK(inode->i_sb != NULL && inode->i_sb->s_private != NULL, "", return -1;);
@@ -126,7 +140,7 @@ int ext2_init_new_inode(struct inode *inode, u32 i_mode)
     case EXT2_S_IFDIR:
         int new_block_idx_ret = ext2_alloc_bno(vfs_sb); // 分配新的块
         CHECK(new_block_idx_ret >= 0, "", return -1;);  // 检查分配块是否成功
-        new_inode->i_block[0] = (u64)new_block_idx_ret; // 更新块索引
+        new_inode->i_block[0] = (uint64_t)new_block_idx_ret; // 更新块索引
         new_inode->i_blocks += vfs_sb->s_block_size / 512;
         new_inode->i_size = vfs_sb->s_block_size;
         new_inode->i_links_count = 2; // . 和 ..
@@ -137,11 +151,12 @@ int ext2_init_new_inode(struct inode *inode, u32 i_mode)
         new_inode->i_blocks = 0;
         new_inode->i_links_count = 1;
     default:
+        new_inode->i_size = 0;
         new_inode->i_block[0] = 0;
         new_inode->i_blocks = 0;
         break;
     }
-    u32 current_time = get_current_unix_timestamp(UTC8);
+    uint32_t current_time = get_current_unix_timestamp(UTC8);
     new_inode->i_atime = current_time;
     new_inode->i_ctime = current_time;
     new_inode->i_mtime = current_time;
@@ -165,7 +180,7 @@ int ext2_init_new_inode(struct inode *inode, u32 i_mode)
     return 0;
 }
 
-int ext2_init_new_entry(struct ext2_dir_entry_2 *new_entry, const char *name, u32 inode_idx, u32 i_mode)
+int ext2_init_new_entry(struct ext2_dir_entry_2 *new_entry, const char *name, uint32_t inode_idx, uint32_t i_mode)
 {
     new_entry->inode = inode_idx;                           // 设置新目录项指向的inode索引
     new_entry->name_len = strlen(name);                     // 设置新目录项的名称长度
@@ -174,12 +189,12 @@ int ext2_init_new_entry(struct ext2_dir_entry_2 *new_entry, const char *name, u3
     return 0;
 }
 
-static int ext2_find_free_slot_in_page(struct page *page, u32 need_len, dir_slot_t *out)
+static int ext2_find_free_slot_in_page(struct page_cache *page, uint32_t need_len, dir_slot_t *out)
 {
     char *page_buf = page->data;
-    u32 offset = 0;
+    uint32_t offset = 0;
     struct ext2_dir_entry_2 *entry = NULL;
-    u32 entry_real_len = 0;
+    uint32_t entry_real_len = 0;
 
     while (offset < VFS_PAGE_SIZE)
     {
@@ -216,11 +231,11 @@ int ext2_find_slot(struct inode *i_parent, size_t name_len, dir_slot_t *slot_out
     CHECK(i_parent != NULL, "", return -1;);
     CHECK(name_len > 0, "", return -1;);
 
-    u64 page_num = (i_parent->i_size + VFS_PAGE_SIZE - 1) / VFS_PAGE_SIZE;
-    for (u64 i = 0; i < page_num; i++)
+    uint64_t page_num = (i_parent->i_size + VFS_PAGE_SIZE - 1) / VFS_PAGE_SIZE;
+    for (uint64_t i = 0; i < page_num; i++)
     {
-        struct page *page = pget(i_parent, i);
-        u32 need_len = EXT2_ENTRY_LEN(name_len);
+        struct page_cache *page = pget(i_parent, i);
+        uint32_t need_len = EXT2_ENTRY_LEN(name_len);
         ext2_find_free_slot_in_page(page, need_len, slot_out);
         if (slot_out->found == true)
         {
@@ -232,13 +247,11 @@ int ext2_find_slot(struct inode *i_parent, size_t name_len, dir_slot_t *slot_out
     return -1;
 }
 
-int ext2_add_entry(struct inode *i_parent, struct dentry *dentry, dir_slot_t *slot, u32 i_mode)
+int ext2_add_entry(struct inode *i_parent, struct dentry *dentry, dir_slot_t *slot, uint32_t i_mode)  
 {
     CHECK(i_parent != NULL, "", return -1;);
 
-    // struct superblock *vfs_sb = i_parent->i_sb;
-
-    struct page *page = pget(i_parent, slot->page_index); // 获取包含空槽的页
+    struct page_cache *page = pget(i_parent, slot->page_index); // 获取包含空槽的页
     struct ext2_dir_entry_2 *new_entry = (struct ext2_dir_entry_2 *)(page->data + slot->offset);
     struct ext2_dir_entry_2 *prev_entry = (struct ext2_dir_entry_2 *)(page->data + slot->prev_offset);
     if (slot->prev_real_len > 0) // 如果需要修改前一个目录项的rec_len
@@ -250,7 +263,7 @@ int ext2_add_entry(struct inode *i_parent, struct dentry *dentry, dir_slot_t *sl
 
     page->dirty = true; // 标记页为脏
     pput(page);         // 写回缓存
-
+    pcache_sync(page); // 同步page缓存
     return dentry->d_inode->i_ino;
 }
 

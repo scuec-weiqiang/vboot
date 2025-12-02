@@ -1,0 +1,38 @@
+[32m先按 Ctrl+A 再按 X 退出 QEMU
+------------------------------------[0m
+/usr/local/qemu-riscv/bin/qemu-system-riscv64 -nographic -smp 1 -machine virt -bios out/vboot.elf -cpu rv64,sstc=on -drive file=../disk.img,if=none,format=raw,id=disk0,cache=writeback -device virtio-blk-device,drive=disk0,bus=virtio-mmio-bus.0 -d guest_errors,unimp,trace:time_memory* -global virtio-mmio.force-legacy=false
+time-memory device initialized at 0x50000000
+Check failed: hlist_node != NULL, function lru_hash_lookup, file lib/lru.c, line 99
+
+Check failed: hlist_node != NULL, function lru_hash_lookup, file lib/lru.c, line 99
+
+ELF entry point: 0xffffffffc0200000u, program header count: 3u
+page init ... 
+heap_start = 0xffffffffc0219000u -----------------_heap_end = -0x38004000 
+alloc_start = 0xffffffffc0221000u
+alloc_end = 0xffffffffc7ffc000u
+num_pages = 0x7ddbu
+malloc init success
+kernel page table init success!
+Check failed: hlist_node != NULL, function lru_lookup, file lib/lru.c, line 118
+
+Check failed: hlist_node != NULL, function lru_lookup, file lib/lru.c, line 118
+
+Check failed: node != NULL, function lru_get, file lib/lru.c, line 207
+ptr <struct lru_node *node> is NULL
+Check failed: hlist_node != NULL, function lru_lookup, file lib/lru.c, line 118
+
+Check failed: hlist_node != NULL, function lru_lookup, file lib/lru.c, line 118
+
+Check failed: node != NULL, function lru_get, file lib/lru.c, line 207
+ptr <struct lru_node *node> is NULL
+in node: cpus
+in node: cpu@0
+in node: soc
+in node: rtc@0x50000000
+cpus
+  cpu@0
+Current time: 2025-10-23 17:38:41.715046
+Current time:0x68f9f7a1
+QEMU: Terminated
+

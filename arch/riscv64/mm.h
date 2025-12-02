@@ -25,18 +25,18 @@
 
 #define PTE_FLAGS (PTE_V | PTE_R | PTE_W | PTE_X)   // 页表项标志位
 
-#define PA2PTE(pa) ((((u64)(pa) >> 12) << 10))
+#define PA2PTE(pa) ((((uint64_t)(pa) >> 12) << 10))
 #define PTE2PA(pte) (((pte&0xffffffffffffffff) >> 10) << 12)
 
 #define SATP_SV39 (8L << 60)
 #define SATP_MODE SATP_SV39 
-#define MAKE_SATP(pagetable) (SATP_MODE | (((u64)pagetable) >> 12))
+#define MAKE_SATP(pagetable) (SATP_MODE | (((uint64_t)pagetable) >> 12))
 
 #define HIGH_VA 0xffffffffc0000000
-#define MAKE_HIGH_VA(pa) (HIGH_VA + ((u64)(pa)) - 0x80000000)
+#define MAKE_HIGH_VA(pa) (HIGH_VA + ((uint64_t)(pa)) - 0x80000000)
 
 #define MMIO_BASE 0xffffffdf00000000
-#define MAKE_MMIO_VA(pa) (MMIO_BASE + ((u64)(pa)))
+#define MAKE_MMIO_VA(pa) (MMIO_BASE + ((uint64_t)(pa)))
 
 #define KERNEL_PA_BASE 0x80000000
 #define KERNEL_VA_BASE 0xffffffffc0000000
@@ -44,7 +44,7 @@
 #define KERNEL_VA(pa) (KERNEL_VA_BASE + ((uintptr_t)(pa)) - KERNEL_PA_BASE)
 #define KERNEL_PA(va) ((uintptr_t)(va) - KERNEL_VA_BASE + KERNEL_PA_BASE)
 
-typedef u64 pte_t;
+typedef uint64_t pte_t;
 typedef pte_t pgtbl_t;
 
 #endif

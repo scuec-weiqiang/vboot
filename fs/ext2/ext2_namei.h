@@ -1,5 +1,5 @@
 /**
- * @FilePath: /ZZZ/kernel/fs/ext2/ext2_namei.h
+ * @FilePath: /ZZZ/kernel/fs/ext2/fs/ext2/ext2_namei.h
  * @Description:  
  * @Author: scuec_weiqiang scuec_weiqiang@qq.com
  * @Date: 2025-09-12 22:55:01
@@ -10,7 +10,7 @@
 #ifndef EXT2_NAMEI_H
 #define EXT2_NAMEI_H
 
-#include "vfs_types.h"
+#include <fs/vfs_types.h>
 extern struct inode_ops ext2_inode_ops;
 
 #endif
